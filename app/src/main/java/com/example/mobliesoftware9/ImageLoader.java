@@ -6,31 +6,46 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 
-
-public class ImageLoader extends AsyncTask<String, Void, Bitmap>
+public class ImageLoader extends AsyncTask<String, Void, LoadedImage>
 {
     @Override
-    protected Bitmap doInBackground(String[] urls) {
+    protected LoadedImage doInBackground(String[] urls) {
         String urldisplay = urls[0];
-        Bitmap imageBitmap = null;
-        try {
-            InputStream in = new java.net.URL(urldisplay).openStream();
-            imageBitmap = BitmapFactory.decodeStream(in);
-        } catch (Exception e) {
+        LoadedImage newLoadedImage = new LoadedImage();
+        try
+        {
+            HttpURLConnection con = (HttpURLConnection) new java.net.URL(urldisplay).openConnection();
+            con.setInstanceFollowRedirects(true);
+            con.connect();
+
+            InputStream in = con.getInputStream();
+
+            newLoadedImage.mImageURL = con.getURL().toString();
+            newLoadedImage.mBitmap = BitmapFactory.decodeStream(in);
+            newLoadedImage.mSuccessLoad = true;
+        }
+        catch (Exception e)
+        {
+            newLoadedImage.mSuccessLoad = false;
+
             Log.e("Error", e.getMessage());
             e.printStackTrace();
         }
-        return imageBitmap;
+        return newLoadedImage;
     }
 
     //사용법 :
+    //
     // ImageView imageView;
-    // Bitmap newImageBitmap = new ImageLoader().LoadImageFromPicsum(width, height);
-    // imageView.setImageBitmap(newImageBitmap);
+    // LoadedImage image = new ImageLoader().LoadImageFromPicsum(200, 300);
+    // imageView.setImageBitmap(image.mBitmap);
+    //
     // Image 로드 완료될 때 까지 block 됩니다.
-    public Bitmap LoadImageFromPicsum(int width, int height)
+    public LoadedImage LoadImageFromPicsum(int width, int height)
     {
         String picsumUrl = "https://picsum.photos/";
         picsumUrl += width;
@@ -43,7 +58,23 @@ public class ImageLoader extends AsyncTask<String, Void, Bitmap>
         }
         catch (Exception e)
         {
-            Log.e("Error", e.getMessage());
+            Log.e("Fail to Load Image (LoadImageFromPicsum)", e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //랜덤이미지가 아닌 특정 URL의 이미지를 원하는 경우
+    //이미 로드한 이미지는 DB에 URL만 저장할 예정
+    public LoadedImage LoadImageFromURL(String urlStr)
+    {
+        try
+        {
+            return this.execute(urlStr).get();
+        }
+        catch (Exception e)
+        {
+            Log.e("Fail to Load Image (LoadImageFromURL) : ", e.getMessage());
             e.printStackTrace();
             return null;
         }
