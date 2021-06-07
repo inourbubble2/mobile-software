@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
     <EditText
         android:id="@+id/inUsername"
@@ -49,6 +50,7 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/gradient_shape"
         android:text="Login"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +62,7 @@
         android:layout_width="68dp"
         android:layout_height="31dp"
         android:text="Register"
-        android:textColor="#0055E2"
+        android:textColor="#00552E"
         android:textSize="35px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:text="Login"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="#00552E"
         android:textSize="120px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.183"
