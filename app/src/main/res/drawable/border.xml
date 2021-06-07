@@ -5,6 +5,5 @@
     <gradient android:startColor="#FFFF"
         android:endColor="#FFFF"/>
 
-    <stroke android:width="5px"/>
 
 </shape>
