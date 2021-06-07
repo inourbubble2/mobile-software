@@ -1,13 +1,20 @@
 package com.example.mobliesoftware9.DB;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.AbstractMap;
+import java.util.Vector;
 
-public class DatabaseManager extends AppCompatActivity {
+import static java.sql.DriverManager.println;
+
+
+public class DatabaseManager extends AppCompatActivity
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -17,7 +24,7 @@ public class DatabaseManager extends AppCompatActivity {
 
     private static DatabaseManager mInstance = null;
     //싱글톤 패턴으로 구현
-    public static DatabaseManager getInstance()
+    public static DatabaseManager GetInstance()
     {
         if(mInstance == null)
         {
@@ -31,16 +38,183 @@ public class DatabaseManager extends AppCompatActivity {
 
     public DatabaseManager()
     {
+        this.mInstance = this;
         this.OpenDatabase();
     }
 
-    public void OpenDatabase()
+    private void OpenDatabase()
     {
         SQLiteEasyHelper helper = new SQLiteEasyHelper(this); //헬퍼를 생성함
-        // DatabaseHelper helper = new DatabaseHelper(this , databaseName, null, 4); //위에거 실행후 이거 실행했을 경우 (이미 해당 디비가있으므로 헬퍼의 update가 호출될것이다.)
-        mDatabase = helper.getWritableDatabase();
+        mDatabase = helper.getWritableDatabase(); //읽기 쓰기 모두 가능
+
+
+
+    }
+
+    public class ColumnContainer
+    {
+        String mColumnName;
+        String mColumnType;
+        boolean mPrimaryKey;
+
+        public ColumnContainer(String columnName, String columnType)
+        {
+            mColumnName = columnName;
+            mColumnType = columnType;
+        }
+        public ColumnContainer(String columnName, String columnType, boolean primaryKey)
+        {
+            mColumnName = columnName;
+            mColumnType = columnType;
+            mPrimaryKey = primaryKey;
+        }
+
+    }
+
+    //사용법 :
+    //
+    //DatabaseManager.GetInstance().CreateTable("dsf", new ColumnContainer[]
+    //{
+    //    new ColumnContainer("password", "text", true),
+    //    new ColumnContainer("age", "integer", false)
+    //}
+    //);
+    //
+    public void CreateTable
+            (
+            String tableName,
+            ColumnContainer columns[]
+            )
+    {
+        if (mDatabase != null)
+        {
+            String queryStr =
+                    "create table " +
+                    tableName +
+                    " (";
+
+            for(ColumnContainer column : columns)
+            {
+                queryStr += ',' + column.mColumnName;
+                queryStr += ' ' + column.mColumnType;
+                queryStr += " PRIMARY KEY autoincrement";
+            }
+            queryStr += ')';
+            this.CreateTable(queryStr);
+
+        } else {
+            throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
+        }
+    }
+
+    //사용법 :
+    //
+    //DatabaseManager.GetInstance().CreateTable(
+    // "create table " + tableName +
+    // "(_id integer PRIMARY KEY autoincrement, name text, age integer, mobile text)"
+    // );
+    //
+    //
+    public void CreateTable(String queryStr)
+    {
+        if (mDatabase != null)
+        {
+            mDatabase.execSQL(queryStr);
+            println("테이블이 성공적으로 생성됨");
+        } else {
+            throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
+        }
+    }
+
+    public void DropTable(String tableName)
+    {
+        if (mDatabase != null)
+        {
+            mDatabase.execSQL("DROP TABLE IF EXISTS " + tableName);
+            println("테이블이 성공적으로 삭제됨 (" + tableName + " )");
+        }
+        else {
+            throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
+        }
     }
 
 
+    //return : Primary Key
+    //
+    //사용법 :
+    //
+    //ContentValues insertedData = new ContentValues();
+    //insertedData.put("id", "kmsjkh");
+    //DatabaseManager.GetInstance().InsertData("tableName", insertedData);
+    //
+    long InsertColumnData(String tableName, ContentValues insertedData)
+    {
+        if (mDatabase != null)
+        {
+            long nowRowID = mDatabase.insertOrThrow (tableName, null, insertedData);
+            return nowRowID;
+        }
+        else {
+            throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
+        }
+    }
 
+    public void UpdateColumnData(String tableName, ContentValues updatedData, long primaryKey)
+    {
+        if (mDatabase != null)
+        {
+            mDatabase.update (tableName, updatedData, "_id=" + primaryKey, null);
+
+        }
+        else {
+            throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
+        }
+    }
+
+    public
+    void UpdateColumnData(String tableName, ContentValues updatedData,
+                          String wherePrimaryKeyColumnName, String[] compareData)
+    {
+        if (mDatabase != null)
+        {
+            mDatabase.update (tableName, updatedData, wherePrimaryKeyColumnName + "=?", compareData);
+
+        }
+        else {
+            throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
+        }
+    }
+
+    void DeleteColumnData(String tableName, String columnName, String[] targetDatas)
+    {
+        if (mDatabase != null)
+        {
+            mDatabase.delete(tableName, columnName + " LIKE ?", targetDatas);
+        }
+        else {
+            throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
+        }
+    }
+
+    /*
+    public void selectData(String tableName) {
+        println("selectData() 호출됨.");
+        if (mDatabase != null)
+        {
+            mDatabase.
+            String sql = "select name, age, mobile from " + tableName;
+            Cursor cursor = database.rawQuery(sql, null); //파라미터는 없으니깐 null 값 넣어주면된다.
+            println("조회된 데이터개수 :" + cursor.getCount());
+            //for문으로해도되고 while 문으로 해도됨.
+            for (int i = 0; i < cursor.getCount(); i++) {
+                cursor.moveToNext();//이걸 해줘야 다음 레코드로 넘어가게된다.
+                String name = cursor.getString(0); //첫번쨰 칼럼을 뽑아줌
+                int age = cursor.getInt(1);
+                String mobile = cursor.getString(2);
+                println("#" + i + " -> " + name + ", " + age + ", " + mobile);
+            }
+            cursor.close(); //cursor라는것도 실제 데이터베이스 저장소를 접근하는 것이기 때문에 자원이 한정되있다. 그러므로 웬만하면 마지막에 close를 꼭 해줘야한다.
+        }
+    }
+    */
 }
