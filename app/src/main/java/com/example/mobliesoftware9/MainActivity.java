@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+
+    Button btnGoToRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
         
         // 홈 화면에서 오늘의 이미지 불러오기
         // 탭이나 토글로 글 조회나 세팅 부분으로 이동 가능
+
+
 
         LoadedImage image = new ImageLoader().LoadImageFromPicsum(200, 300);
     }
