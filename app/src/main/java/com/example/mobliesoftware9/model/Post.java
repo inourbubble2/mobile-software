@@ -15,18 +15,18 @@ public class Post  extends DBTable
 
     //int postID; // Primary Key , replaced by DBTable.mPrimaryKey
 
-    String writerID;
-    String title;
-    String content;
-    Date createdAt;
-    Date updatedAt;
-    Date deletedAt;
-    LoadedImage attachedImg;
-    int viewCount;
-    int likedCount;
+    public String writerID;
+    public String title;
+    public String content;
+    public Date createdAt;
+    public Date updatedAt;
+    public Date deletedAt;
+    public LoadedImage attachedImg;
+    public int viewCount;
+    public int likedCount;
 
     //HashTag는 하나만 저장 ( 여러개 하려니 DB에 저장하기 까다로움 )
-    String hashtag;
+    public String hashtag;
 
     @Override
     public String GetTableName() {

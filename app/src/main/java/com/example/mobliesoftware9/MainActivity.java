@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.example.mobliesoftware9.Image.ImageLoader;
 import com.example.mobliesoftware9.Image.LoadedImage;
+import com.example.mobliesoftware9.model.Post;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +28,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        //TEST
         LoadedImage image = new ImageLoader().LoadRandomImage(200, 300);
+
+        Post post;
+        post.
     }
 }

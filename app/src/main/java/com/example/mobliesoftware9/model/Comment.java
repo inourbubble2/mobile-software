@@ -13,13 +13,13 @@ public class Comment extends DBTable
 {
     //int commentID; // Primary Key , replaced by DBTable.mPrimaryKey
 
-    int postID; // Foreign Key
-    int parentID; // 답댓글 기능도 구현할 것인지?
-    String writerID;
-    Date createdAt;
-    Date updatedAt;
-    Date deletedAt;
-    int likedCount;
+    public int postID; // Foreign Key
+    public int parentID; // 답댓글 기능도 구현할 것인지?
+    public String writerID;
+    public Date createdAt;
+    public Date updatedAt;
+    public Date deletedAt;
+    public int likedCount;
 
     @Override
     public String GetTableName() {
