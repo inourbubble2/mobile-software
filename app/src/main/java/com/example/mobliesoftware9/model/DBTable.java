@@ -59,7 +59,7 @@ abstract  public class DBTable
     public void LoadFromDB(int primaryKey)
     {
         CursorWrapper cursorHelper = DatabaseManager.GetInstance().SelectRows(this.GetTableName(), null,
-                DBTable.mPrimaryKeyColumnName, Integer.toString(primaryKey), null, null);
+                new String[]{DBTable.mPrimaryKeyColumnName}, new String[]{Integer.toString(primaryKey)}, null, null);
 
         this.mPrimaryKey = cursorHelper.GetIntegerData(DBTable.mPrimaryKeyColumnName);
         this.LoadFromDB(cursorHelper);

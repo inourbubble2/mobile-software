@@ -298,7 +298,7 @@ public class DatabaseManager
         if (mDatabase != null)
         {
             return new CursorWrapper( mDatabase.query(tableName, selectColumnNames,
-                    GetWhereQuery(whereColumnNames), whereColumnCompareData,
+                    whereColumnNames == null ? null : GetWhereQuery(whereColumnNames), whereColumnCompareData,
                     groupByColumnName, null, orderByColumName) );
         }
         else {
@@ -306,15 +306,5 @@ public class DatabaseManager
         }
     }
 
-    // selectColumnNames에 null 넣으면 모든 column 가져옴
-    public CursorWrapper SelectRows(String tableName, String[] selectColumnNames,
-                                    String whereColumnNames, String whereColumnCompareData,
-                                    String groupByColumnName, String orderByColumName
-    )
-    {
-        return SelectRows(tableName, selectColumnNames, new String[]{whereColumnNames},
-                          new String[]{whereColumnCompareData}, groupByColumnName, orderByColumName);
-
-    }
 
 }

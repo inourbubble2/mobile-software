@@ -2,17 +2,16 @@ package com.example.mobliesoftware9;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.mobliesoftware9.DB.CursorWrapper;
 import com.example.mobliesoftware9.DB.DatabaseManager;
 import com.example.mobliesoftware9.Image.ImageLoader;
 import com.example.mobliesoftware9.Image.LoadedImage;
 import com.example.mobliesoftware9.model.Post;
-import com.example.mobliesoftware9.model.User;
 
 import java.util.Vector;
 
@@ -33,8 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnGoToRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                setContentView(R.layout.activity_register);
             }
         });
 
@@ -69,18 +67,19 @@ public class MainActivity extends AppCompatActivity {
         post1.NewlyInsertToDB();
         post2.NewlyInsertToDB();
 
-        User user = new User();
-        user.username = "nat";
-        user.email = "aaa@gmail.com";
-        user.password = "123";
-
-        user.CreateTable();
-        user.NewlyInsertToDB();
-
+        //Logcat 보시면 테스트 성공적으로 된걸 보실 수 있습니다.
         Log.d("DB Test", "Primary Key1 : " + post.mPrimaryKey);
         Log.d("DB Test", "Primary Key2 : " + post1.mPrimaryKey);
         Log.d("DB Test", "Primary Key3 : " + post2.mPrimaryKey);
-        Log.d("DB Test", "User Info : " + user.mPrimaryKey);
+
+        //cursorWrapper은 조건문에 일치하는 모든 row 들고 있다.
+        CursorWrapper cursorWrapper = DatabaseManager.GetInstance().SelectRows(post.GetTableName(), null, null, null, null, null);
+
+        for (int i = 0; i < cursorWrapper.mCursor.getCount(); i++)
+        {
+            cursorWrapper.mCursor.moveToNext();//이걸 해줘야 다음 레코드로 넘어가게된다.
+            Log.d("DB Test", cursorWrapper.GetStringData("writerID"));
+        }
     }
 
 }
