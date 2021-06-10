@@ -155,7 +155,7 @@ public class DatabaseManager extends AppCompatActivity
     //insertedData.put("id", "kmsjkh");
     //DatabaseManager.GetInstance().InsertData("tableName", insertedData);
     //
-    public long InsertNewData(String tableName, ContentValues insertedData)
+    public long InsertNewRow(String tableName, ContentValues insertedData)
     {
         if (mDatabase != null)
         {
@@ -195,7 +195,7 @@ public class DatabaseManager extends AppCompatActivity
     //
     // whereColumCompareData가 String[]인 이유 : SQLite가 다른 type은 허용안함
     // 그래서 integer도 String으로 변환해서 넘겨야한다.
-    public void UpdateData(String tableName, ContentValues updatedData,
+    public void UpdateRows(String tableName, ContentValues updatedData,
                            String[] whereColumnNames, String[] whereColumnCompareData)
     {
         if (mDatabase != null)
@@ -216,7 +216,7 @@ public class DatabaseManager extends AppCompatActivity
     //
     // whereColumCompareData가 String[]인 이유 : SQLite가 다른 type은 허용안함
     // 그래서 integer도 String으로 변환해서 넘겨야한다.
-    void DeleteColumnData(String tableName, String[] whereColumnNames, String[] whereColumnCompareData)
+    public void DeleteRow(String tableName, String[] whereColumnNames, String[] whereColumnCompareData)
     {
         if (mDatabase != null)
         {
@@ -227,7 +227,18 @@ public class DatabaseManager extends AppCompatActivity
         }
     }
 
-    public CursorHelper SelectData(String selectQueryStr)
+    public void DeleteRow(String tableName, String whereColumnNames, int whereColumnCompareIngerData)
+    {
+        if (mDatabase != null)
+        {
+            mDatabase.delete(tableName, whereColumnNames + " LIKE ?", new String[]{Integer.toString(whereColumnCompareIngerData)});
+        }
+        else {
+            throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
+        }
+    }
+
+    public CursorHelper SelectRow(String selectQueryStr)
     {
         if (mDatabase != null) {
             return new CursorHelper( mDatabase.rawQuery(selectQueryStr, null) );
@@ -249,7 +260,7 @@ public class DatabaseManager extends AppCompatActivity
     //  "mPrimaryKey", "name", "age", "height" 데이터를 가져오라. 
     //  그리고 같은 "age"끼리 grouping을 하고, "height" 순으로 ordering해라
     //
-    public CursorHelper SelectData(String tableName, String[] selectColumnNames,
+    public CursorHelper SelectRows(String tableName, String[] selectColumnNames,
                              String[] whereColumnNames, String[] whereColumnCompareData,
                              String groupByColumnName, String orderByColumName
     )
@@ -264,7 +275,7 @@ public class DatabaseManager extends AppCompatActivity
             throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
         }
     }
-    }
+
     /*
     public Cursor selectData(String tableName)
     {

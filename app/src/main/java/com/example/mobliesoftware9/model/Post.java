@@ -71,15 +71,9 @@ public class Post  extends DBTable
     }
 
     @Override
-    public void NewlyInsertToDB()
-    {
+    public void LoadFromDB() {
 
     }
 
 
-
-    @Override
-    public void DeleteFromDB() {
-
-    }
 }

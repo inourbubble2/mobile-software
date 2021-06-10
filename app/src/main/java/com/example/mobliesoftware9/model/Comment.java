@@ -57,16 +57,11 @@ public class Comment extends DBTable
         return contentValues;
     }
 
+
     @Override
-    public void NewlyInsertToDB()
-    {
+    public void LoadFromDB() {
 
     }
 
 
-
-    @Override
-    public void DeleteFromDB() {
-
-    }
 }

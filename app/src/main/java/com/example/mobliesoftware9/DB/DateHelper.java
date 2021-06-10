@@ -13,8 +13,16 @@ public class DateHelper
         return mDateFormat.format(data);
     }
 
-    public static Date StringToDate(String dateFormat) throws ParseException
+    public static Date StringToDate(String dateFormat)
     {
-        return mDateFormat.parse(dateFormat);
+        try
+        {
+            return mDateFormat.parse(dateFormat);
+        }
+        catch (ParseException e)
+        {
+            throw new AssertionError("Date Parse 실패");
+        }
+
     }
 }
