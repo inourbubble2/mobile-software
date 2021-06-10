@@ -16,9 +16,9 @@ public class Comment extends DBTable
     public int postID; // Foreign Key
     public int parentID; // 답댓글 기능도 구현할 것인지?
     public String writerID;
-    public Date createdAt;
-    public Date updatedAt;
-    public Date deletedAt;
+    public Date createdAt = new Date();;
+    public Date updatedAt = new Date();;
+    public Date deletedAt = new Date();;
     public int likedCount;
 
     @Override
@@ -27,7 +27,7 @@ public class Comment extends DBTable
     }
 
     @Override
-    public Vector<DatabaseManager.ColumnContainer> GetCreate()
+    public Vector<DatabaseManager.ColumnContainer> GetColumnContainersInternal()
     {
         Vector<DatabaseManager.ColumnContainer> column = new Vector<DatabaseManager.ColumnContainer>();
 

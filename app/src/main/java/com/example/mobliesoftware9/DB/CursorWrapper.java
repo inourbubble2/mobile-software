@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class CursorWrapper
 {
-    private Cursor mCursor;
+    public Cursor mCursor;
 
     public CursorWrapper(Cursor cursor)
     {

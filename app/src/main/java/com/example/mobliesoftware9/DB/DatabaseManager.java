@@ -1,23 +1,17 @@
 package com.example.mobliesoftware9.DB;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 
 import static java.sql.DriverManager.println;
 
 
-public class DatabaseManager extends AppCompatActivity
+public class DatabaseManager
 {
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-    }
+    public static final String DB_NAME = "mobileSW9.db";
 
     private static DatabaseManager mInstance = null;
     //싱글톤 패턴으로 구현
@@ -31,18 +25,29 @@ public class DatabaseManager extends AppCompatActivity
         return mInstance;
     }
 
+    private SQLiteEasyHelper mSQLiteEasyHelper = null;
     private SQLiteDatabase mDatabase = null;
 
     public DatabaseManager()
     {
         this.mInstance = this;
-        this.OpenDatabase();
+
     }
 
-    private void OpenDatabase()
+
+
+    public void OpenDatabase(@Nullable Context context)
     {
-        SQLiteEasyHelper helper = new SQLiteEasyHelper(this); //헬퍼를 생성함
-        mDatabase = helper.getWritableDatabase(); //읽기 쓰기 모두 가능
+        try
+        {
+            this.mSQLiteEasyHelper = new SQLiteEasyHelper(DB_NAME, context); //헬퍼를 생성함
+            this.mDatabase = this.mSQLiteEasyHelper.getWritableDatabase(); //읽기 쓰기 모두 가능
+        }
+        catch (Exception e)
+        {
+            throw new AssertionError(e.getMessage());
+        }
+
     }
 
     public SQLiteDatabase GetSQLiteDatabase()
@@ -82,28 +87,38 @@ public class DatabaseManager extends AppCompatActivity
     public void CreateTable
             (
             String tableName,
-            ColumnContainer columns[]
+            ColumnContainer[] columns
             )
     {
         if (mDatabase != null)
         {
             String queryStr =
-                    "create table " +
+                    "create table IF NOT EXISTS " +
                     tableName +
                     " (";
 
-            for(ColumnContainer column : columns)
+            for(int i = 0 ; i < columns.length ; i++)
             {
-                queryStr += ',' + column.mColumnName;
-                queryStr += ' ' + column.mColumnType;
-                if(column.mPrimaryKey == true)
+                if(i != 0)
                 {
-                    queryStr += " PRIMARY KEY autoincrement";
+                    queryStr += ',';
+                }
+
+                queryStr += columns[i].mColumnName;
+                queryStr += ' ' + columns[i].mColumnType;
+                if(columns[i].mPrimaryKey == true)
+                {
+                    queryStr += " PRIMARY KEY";
+                    if(columns[i].mColumnType == "integer")
+                    {
+                        queryStr += " autoincrement";
+                    }
                 }
 
             }
             queryStr += ')';
             this.CreateTable(queryStr);
+
 
         } else {
             throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
@@ -153,8 +168,16 @@ public class DatabaseManager extends AppCompatActivity
     {
         if (mDatabase != null)
         {
-            long rowID = mDatabase.insert (tableName, null, insertedData);
-            return rowID;
+            try
+            {
+                long rowID = mDatabase.insertOrThrow (tableName, null, insertedData);
+                return rowID;
+            }
+            catch (Exception e)
+            {
+                throw new AssertionError(e.getMessage());
+            }
+
         }
         else {
             throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");

@@ -17,7 +17,20 @@ abstract  public class DBTable
 
     public abstract String GetTableName();
 
-    public abstract Vector<DatabaseManager.ColumnContainer> GetCreate();
+    public void CreateTable()
+    {
+        Vector<DatabaseManager.ColumnContainer> columnContainers = this.GetColumnContainers();
+        DatabaseManager.GetInstance().CreateTable(this.GetTableName(), (columnContainers.toArray(new DatabaseManager.ColumnContainer[columnContainers.size()])));
+    }
+
+    public Vector<DatabaseManager.ColumnContainer> GetColumnContainers()
+    {
+        Vector<DatabaseManager.ColumnContainer> columnContainers = this.GetColumnContainersInternal();
+        columnContainers.add(new DatabaseManager.ColumnContainer(mPrimaryKeyColumnName, "integer", true));
+        return columnContainers;
+    }
+
+    protected abstract Vector<DatabaseManager.ColumnContainer> GetColumnContainersInternal();
 
     //GetCurrentContentValue에서는 절대 PrimaryKey 넣으면 안된다.
     public abstract ContentValues GetCurrentContentValue();
@@ -27,6 +40,7 @@ abstract  public class DBTable
     {
         long row = DatabaseManager.GetInstance().InsertNewRow(this.GetTableName(), this.GetCurrentContentValue());
         CursorWrapper cursorHelper = DatabaseManager.GetInstance().SelectRowWithRowID(this.GetTableName(), row);
+        cursorHelper.mCursor.moveToFirst();
         this.mPrimaryKey = cursorHelper.GetIntegerData(DBTable.mPrimaryKeyColumnName);
     }
 

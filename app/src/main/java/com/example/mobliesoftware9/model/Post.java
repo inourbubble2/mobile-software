@@ -18,10 +18,10 @@ public class Post  extends DBTable
     public String writerID;
     public String title;
     public String content;
-    public Date createdAt;
-    public Date updatedAt;
-    public Date deletedAt;
-    public LoadedImage attachedImg;
+    public Date createdAt = new Date();
+    public Date updatedAt= new Date();
+    public Date deletedAt= new Date();
+    public LoadedImage attachedImg = new LoadedImage();;
     public int viewCount;
     public int likedCount;
 
@@ -34,7 +34,7 @@ public class Post  extends DBTable
     }
 
     @Override
-    public Vector<DatabaseManager.ColumnContainer> GetCreate()
+    public Vector<DatabaseManager.ColumnContainer> GetColumnContainersInternal()
     {
         Vector<DatabaseManager.ColumnContainer> column = new Vector<DatabaseManager.ColumnContainer>();
 

@@ -9,17 +9,14 @@ import androidx.annotation.Nullable;
 public class SQLiteEasyHelper extends SQLiteOpenHelper
 {
 
-    static final String DB_NAME = "mobileSW9.db";   //DB이름
+      //DB이름
     static final int DB_VERSION = 1;
 
-    Context myContext = null;
 
-
-
-
-    public SQLiteEasyHelper(@Nullable Context context)
+    public SQLiteEasyHelper(String dbName, @Nullable Context context)
     {
-        super(context, DB_NAME, null, DB_VERSION);
+        super(context, dbName, null, DB_VERSION);
+        this.getWritableDatabase();
     }
 
     @Override
