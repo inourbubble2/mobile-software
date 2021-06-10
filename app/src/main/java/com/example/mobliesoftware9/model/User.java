@@ -16,6 +16,16 @@ public class User extends DBTable {
     public String email;
     public Date createdAt = new Date();
 
+    private static User instance = null;
+
+    public static synchronized void setInstance(User user) {
+        instance = user;
+    }
+
+    public static synchronized User getInstance() {
+        return instance;
+    }
+
     @Override
     public String GetTableName() { return "User"; }
 
