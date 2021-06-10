@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.AbstractMap;
 import java.util.Vector;
 
@@ -16,6 +17,7 @@ import static java.sql.DriverManager.println;
 
 public class DatabaseManager extends AppCompatActivity
 {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

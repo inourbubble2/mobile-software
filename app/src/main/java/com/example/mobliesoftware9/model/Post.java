@@ -3,6 +3,7 @@ package com.example.mobliesoftware9.model;
 import android.content.ContentValues;
 
 import com.example.mobliesoftware9.DB.DatabaseManager;
+import com.example.mobliesoftware9.DB.DateHelper;
 import com.example.mobliesoftware9.Image.LoadedImage;
 
 import java.util.Date;
@@ -58,9 +59,9 @@ public class Post  extends DBTable
         contentValues.put("writerID", this.writerID);
         contentValues.put("title", this.title);
         contentValues.put("content", this.content);
-        contentValues.put("createdAt", mDateFormat.format(this.createdAt));
-        contentValues.put("updatedAt", mDateFormat.format(this.updatedAt));
-        contentValues.put("deletedAt", mDateFormat.format(this.deletedAt));
+        contentValues.put("createdAt", DateHelper.DateToString(this.createdAt));
+        contentValues.put("updatedAt", DateHelper.DateToString(this.updatedAt));
+        contentValues.put("deletedAt", DateHelper.DateToString(this.deletedAt));
         contentValues.put("attachedImageURL", attachedImg.mImageURL);
         contentValues.put("viewCount", this.viewCount);
         contentValues.put("likedCount", this.likedCount);

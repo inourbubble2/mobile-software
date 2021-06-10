@@ -3,6 +3,7 @@ package com.example.mobliesoftware9.model;
 import android.content.ContentValues;
 
 import com.example.mobliesoftware9.DB.DatabaseManager;
+import com.example.mobliesoftware9.DB.DateHelper;
 
 import java.util.Date;
 import java.util.Vector;
@@ -48,9 +49,9 @@ public class Comment extends DBTable
         contentValues.put("postID", this.postID);
         contentValues.put("parentID", this.parentID);
         contentValues.put("writerID", this.writerID);
-        contentValues.put("createdAt", mDateFormat.format(this.createdAt));
-        contentValues.put("updatedAt", mDateFormat.format(this.updatedAt));
-        contentValues.put("deletedAt", mDateFormat.format(this.deletedAt));
+        contentValues.put("createdAt", DateHelper.DateToString(this.createdAt));
+        contentValues.put("updatedAt", DateHelper.DateToString(this.updatedAt));
+        contentValues.put("deletedAt", DateHelper.DateToString(this.deletedAt));
         contentValues.put("likedCount", this.likedCount);
 
         return contentValues;

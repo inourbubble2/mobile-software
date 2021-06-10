@@ -13,7 +13,7 @@ abstract  public class DBTable
     public int mPrimaryKey;
     DatabaseManager.ColumnContainer mPrimaryKeyColumnContainer = new DatabaseManager.ColumnContainer("mPrimaryKey", "interger", true);
 
-    public static SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 
     public abstract String GetTableName();
 
