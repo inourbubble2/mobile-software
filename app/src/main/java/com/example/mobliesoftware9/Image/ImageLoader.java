@@ -39,7 +39,7 @@ public class ImageLoader extends AsyncTask<String, Void, LoadedImage>
     //사용법 :
     //
     // ImageView imageView;
-    // LoadedImage image = new ImageLoader().LoadImageFromPicsum(200, 300);
+    // LoadedImage image = new ImageLoader().LoadRandomImage(200, 300);
     // imageView.setImageBitmap(image.mBitmap);
     //
     // Image 로드 완료될 때 까지 block 됩니다.

@@ -2,6 +2,7 @@ package com.example.mobliesoftware9.model;
 
 import android.content.ContentValues;
 
+import com.example.mobliesoftware9.DB.CursorWrapper;
 import com.example.mobliesoftware9.DB.DatabaseManager;
 import com.example.mobliesoftware9.DB.DateHelper;
 import com.example.mobliesoftware9.Image.LoadedImage;
@@ -71,9 +72,19 @@ public class Post  extends DBTable
     }
 
     @Override
-    public void LoadFromDB() {
-
+    public void LoadFromDB(CursorWrapper cursor) {
+        this.mPrimaryKey = cursor.GetIntegerData(DBTable.mPrimaryKeyColumnName);
+        this.title = cursor.GetStringData("title");
+        this.content = cursor.GetStringData("content");
+        this.createdAt = cursor.GetDateData("createdAt");
+        this.updatedAt = cursor.GetDateData("updatedAt");
+        this.deletedAt = cursor.GetDateData("deletedAt");
+        this.attachedImg.mImageURL = cursor.GetStringData("attachedImageURL");
+        this.viewCount = cursor.GetIntegerData("viewCount");
+        this.likedCount = cursor.GetIntegerData("likedCount");
+        this.hashtag = cursor.GetStringData("hashtag");
     }
+
 
 
 }

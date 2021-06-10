@@ -2,6 +2,7 @@ package com.example.mobliesoftware9.model;
 
 import android.content.ContentValues;
 
+import com.example.mobliesoftware9.DB.CursorWrapper;
 import com.example.mobliesoftware9.DB.DatabaseManager;
 import com.example.mobliesoftware9.DB.DateHelper;
 
@@ -57,11 +58,20 @@ public class Comment extends DBTable
         return contentValues;
     }
 
-
     @Override
-    public void LoadFromDB() {
-
+    public void LoadFromDB(CursorWrapper cursor) {
+        this.mPrimaryKey = cursor.GetIntegerData(DBTable.mPrimaryKeyColumnName);
+        this.postID = cursor.GetIntegerData("postID");
+        this.parentID = cursor.GetIntegerData("parentID");
+        this.writerID = cursor.GetStringData("writerID");
+        this.createdAt = cursor.GetDateData("createdAt");
+        this.updatedAt = cursor.GetDateData("updatedAt");
+        this.deletedAt = cursor.GetDateData("deletedAt");
+        this.likedCount = cursor.GetIntegerData("likedCount");
     }
+
+
+
 
 
 }

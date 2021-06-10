@@ -4,11 +4,11 @@ import android.database.Cursor;
 
 import java.util.Date;
 
-public class CursorHelper
+public class CursorWrapper
 {
     private Cursor mCursor;
 
-    public CursorHelper(Cursor cursor)
+    public CursorWrapper(Cursor cursor)
     {
         mCursor = cursor;
     }

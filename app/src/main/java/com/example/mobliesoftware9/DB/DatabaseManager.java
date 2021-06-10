@@ -1,16 +1,10 @@
 package com.example.mobliesoftware9.DB;
 
 import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.text.SimpleDateFormat;
-import java.util.AbstractMap;
-import java.util.Vector;
 
 import static java.sql.DriverManager.println;
 
@@ -238,10 +232,10 @@ public class DatabaseManager extends AppCompatActivity
         }
     }
 
-    public CursorHelper SelectRow(String selectQueryStr)
+    public CursorWrapper SelectRow(String selectQueryStr)
     {
         if (mDatabase != null) {
-            return new CursorHelper( mDatabase.rawQuery(selectQueryStr, null) );
+            return new CursorWrapper( mDatabase.rawQuery(selectQueryStr, null) );
         }
         else
         {
@@ -249,7 +243,18 @@ public class DatabaseManager extends AppCompatActivity
         }
     }
 
-
+    public CursorWrapper SelectRowWithRowID(String tableName, long rowID)
+    {
+        if (mDatabase != null) {
+            return new CursorWrapper( mDatabase.query(tableName, null,
+                    "rowid = ?", new String[]{Long.toString(rowID)},
+                    null, null, null) );
+        }
+        else
+        {
+            throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
+        }
+    }
     // 사용법
     // Cursor resultCursor = SelectData("table명", new String[]{"mPrimaryKey", "name", "age", "height"},
     //                             new String[]{"age"}, new String[]{"12"},
@@ -260,14 +265,16 @@ public class DatabaseManager extends AppCompatActivity
     //  "mPrimaryKey", "name", "age", "height" 데이터를 가져오라. 
     //  그리고 같은 "age"끼리 grouping을 하고, "height" 순으로 ordering해라
     //
-    public CursorHelper SelectRows(String tableName, String[] selectColumnNames,
-                             String[] whereColumnNames, String[] whereColumnCompareData,
-                             String groupByColumnName, String orderByColumName
+    //
+    // selectColumnNames에 null 넣으면 모든 column 가져옴
+    public CursorWrapper SelectRows(String tableName, String[] selectColumnNames,
+                                    String[] whereColumnNames, String[] whereColumnCompareData,
+                                    String groupByColumnName, String orderByColumName
     )
     {
         if (mDatabase != null)
         {
-            return new CursorHelper( mDatabase.query(tableName, selectColumnNames,
+            return new CursorWrapper( mDatabase.query(tableName, selectColumnNames,
                     GetWhereQuery(whereColumnNames), whereColumnCompareData,
                     groupByColumnName, null, orderByColumName) );
         }
@@ -276,28 +283,15 @@ public class DatabaseManager extends AppCompatActivity
         }
     }
 
-    /*
-    public Cursor selectData(String tableName)
+    // selectColumnNames에 null 넣으면 모든 column 가져옴
+    public CursorWrapper SelectRows(String tableName, String[] selectColumnNames,
+                                    String whereColumnNames, String whereColumnCompareData,
+                                    String groupByColumnName, String orderByColumName
+    )
     {
-        if (mDatabase != null)
-        {
-            String sql = "select name, age, mobile from " + tableName;
+        return SelectRows(tableName, selectColumnNames, new String[]{whereColumnNames},
+                          new String[]{whereColumnCompareData}, groupByColumnName, orderByColumName);
 
-            Cursor cursor = mDatabase.rawQuery(sql, null); //파라미터는 없으니깐 null 값 넣어주면된다.
-            println("조회된 데이터개수 :" + cursor.getCount());
-            //for문으로해도되고 while 문으로 해도됨.
-            for (int i = 0; i < cursor.getCount(); i++)
-            {
-                cursor.moveToNext();//이걸 해줘야 다음 레코드로 넘어가게된다.
-                String name = cursor.getString(0); //첫번쨰 칼럼을 뽑아줌
-                int age = cursor.getInt(1);
-                String mobile = cursor.getString(2);
-                println("#" + i + " -> " + name + ", " + age + ", " + mobile);
-            }
-
-
-            //cursor.close(); //cursor라는것도 실제 데이터베이스 저장소를 접근하는 것이기 때문에 자원이 한정되있다. 그러므로 웬만하면 마지막에 close를 꼭 해줘야한다.
-        }
     }
-    */
+
 }
