@@ -2,11 +2,12 @@ package com.example.mobliesoftware9;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.mobliesoftware9.Image.ImageLoader;
+import com.example.mobliesoftware9.Image.LoadedImage;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +28,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        LoadedImage image = new ImageLoader().LoadImageFromPicsum(200, 300);
+        LoadedImage image = new ImageLoader().LoadRandomImage(200, 300);
     }
 }

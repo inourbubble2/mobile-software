@@ -1,13 +1,11 @@
-package com.example.mobliesoftware9;
+package com.example.mobliesoftware9.Image;
 
 import android.util.Log;
 
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
 
 
 public class ImageLoader extends AsyncTask<String, Void, LoadedImage>
@@ -45,7 +43,7 @@ public class ImageLoader extends AsyncTask<String, Void, LoadedImage>
     // imageView.setImageBitmap(image.mBitmap);
     //
     // Image 로드 완료될 때 까지 block 됩니다.
-    public LoadedImage LoadImageFromPicsum(int width, int height)
+    public LoadedImage LoadRandomImage(int width, int height)
     {
         String picsumUrl = "https://picsum.photos/";
         picsumUrl += width;

@@ -2,6 +2,7 @@ package com.example.mobliesoftware9.DB;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
@@ -46,16 +47,18 @@ public class DatabaseManager extends AppCompatActivity
     {
         SQLiteEasyHelper helper = new SQLiteEasyHelper(this); //헬퍼를 생성함
         mDatabase = helper.getWritableDatabase(); //읽기 쓰기 모두 가능
-
-
-
     }
 
-    public class ColumnContainer
+    public SQLiteDatabase GetSQLiteDatabase()
     {
-        String mColumnName;
-        String mColumnType;
-        boolean mPrimaryKey;
+        return this.mDatabase;
+    }
+
+    public static class ColumnContainer
+    {
+        public String mColumnName;
+        public String mColumnType;
+        public boolean mPrimaryKey = false;
 
         public ColumnContainer(String columnName, String columnType)
         {
@@ -97,7 +100,11 @@ public class DatabaseManager extends AppCompatActivity
             {
                 queryStr += ',' + column.mColumnName;
                 queryStr += ' ' + column.mColumnType;
-                queryStr += " PRIMARY KEY autoincrement";
+                if(column.mPrimaryKey == true)
+                {
+                    queryStr += " PRIMARY KEY autoincrement";
+                }
+
             }
             queryStr += ')';
             this.CreateTable(queryStr);
@@ -111,7 +118,7 @@ public class DatabaseManager extends AppCompatActivity
     //
     //DatabaseManager.GetInstance().CreateTable(
     // "create table " + tableName +
-    // "(_id integer PRIMARY KEY autoincrement, name text, age integer, mobile text)"
+    // "(primaryKey integer PRIMARY KEY autoincrement, name text, age integer, mobile text)"
     // );
     //
     //
@@ -147,11 +154,11 @@ public class DatabaseManager extends AppCompatActivity
     //insertedData.put("id", "kmsjkh");
     //DatabaseManager.GetInstance().InsertData("tableName", insertedData);
     //
-    long InsertColumnData(String tableName, ContentValues insertedData)
+    long InsertOrUpdateColumnData(String tableName, ContentValues insertedData)
     {
         if (mDatabase != null)
         {
-            long nowRowID = mDatabase.insertOrThrow (tableName, null, insertedData);
+            long nowRowID = mDatabase.replaceOrThrow (tableName, null, insertedData);
             return nowRowID;
         }
         else {
@@ -159,25 +166,15 @@ public class DatabaseManager extends AppCompatActivity
         }
     }
 
-    public void UpdateColumnData(String tableName, ContentValues updatedData, long primaryKey)
-    {
-        if (mDatabase != null)
-        {
-            mDatabase.update (tableName, updatedData, "_id=" + primaryKey, null);
 
-        }
-        else {
-            throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
-        }
-    }
 
     public
     void UpdateColumnData(String tableName, ContentValues updatedData,
-                          String wherePrimaryKeyColumnName, String[] compareData)
+                          String wherePrimaryKeyColumnName, String[] primaryKey)
     {
         if (mDatabase != null)
         {
-            mDatabase.update (tableName, updatedData, wherePrimaryKeyColumnName + "=?", compareData);
+            mDatabase.update (tableName, updatedData, wherePrimaryKeyColumnName + "=?", primaryKey);
 
         }
         else {
@@ -185,34 +182,48 @@ public class DatabaseManager extends AppCompatActivity
         }
     }
 
-    void DeleteColumnData(String tableName, String columnName, String[] targetDatas)
+    void DeleteColumnData(String tableName, String whereColumn, String[] whereData)
     {
         if (mDatabase != null)
         {
-            mDatabase.delete(tableName, columnName + " LIKE ?", targetDatas);
+            mDatabase.delete(tableName, whereColumn + " LIKE ?", whereData);
         }
         else {
+            throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
+        }
+    }
+
+    public Cursor SelectData(String selectQueryStr)
+    {
+        if (mDatabase != null) {
+            return mDatabase.rawQuery(selectQueryStr, null);
+        }
+        else
+        {
             throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
         }
     }
 
     /*
-    public void selectData(String tableName) {
-        println("selectData() 호출됨.");
+    public Cursor selectData(String tableName)
+    {
         if (mDatabase != null)
         {
-            mDatabase.
             String sql = "select name, age, mobile from " + tableName;
-            Cursor cursor = database.rawQuery(sql, null); //파라미터는 없으니깐 null 값 넣어주면된다.
+
+            Cursor cursor = mDatabase.rawQuery(sql, null); //파라미터는 없으니깐 null 값 넣어주면된다.
             println("조회된 데이터개수 :" + cursor.getCount());
             //for문으로해도되고 while 문으로 해도됨.
-            for (int i = 0; i < cursor.getCount(); i++) {
+            for (int i = 0; i < cursor.getCount(); i++)
+            {
                 cursor.moveToNext();//이걸 해줘야 다음 레코드로 넘어가게된다.
                 String name = cursor.getString(0); //첫번쨰 칼럼을 뽑아줌
                 int age = cursor.getInt(1);
                 String mobile = cursor.getString(2);
                 println("#" + i + " -> " + name + ", " + age + ", " + mobile);
             }
+
+
             cursor.close(); //cursor라는것도 실제 데이터베이스 저장소를 접근하는 것이기 때문에 자원이 한정되있다. 그러므로 웬만하면 마지막에 close를 꼭 해줘야한다.
         }
     }

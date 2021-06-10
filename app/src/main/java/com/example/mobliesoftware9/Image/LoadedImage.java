@@ -1,4 +1,4 @@
-package com.example.mobliesoftware9;
+package com.example.mobliesoftware9.Image;
 
 import android.graphics.Bitmap;
 
@@ -6,8 +6,8 @@ import java.net.URL;
 
 public class LoadedImage
 {
-    Bitmap mBitmap;
+    public Bitmap mBitmap;
     //랜덤 이미지가 아닌 mBitmap의 url
-    String mImageURL;
-    boolean mSuccessLoad;
+    public String mImageURL;
+    public boolean mSuccessLoad;
 }
