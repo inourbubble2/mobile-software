@@ -2,6 +2,7 @@ package com.example.mobliesoftware9;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.example.mobliesoftware9.DB.DatabaseManager;
 import com.example.mobliesoftware9.Image.ImageLoader;
 import com.example.mobliesoftware9.Image.LoadedImage;
 import com.example.mobliesoftware9.model.Post;
+import com.example.mobliesoftware9.model.User;
 
 import java.util.Vector;
 
@@ -31,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         btnGoToRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                setContentView(R.layout.activity_register);
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -66,9 +69,18 @@ public class MainActivity extends AppCompatActivity {
         post1.NewlyInsertToDB();
         post2.NewlyInsertToDB();
 
+        User user = new User();
+        user.username = "nat";
+        user.email = "aaa@gmail.com";
+        user.password = "123";
+
+        user.CreateTable();
+        user.NewlyInsertToDB();
+
         Log.d("DB Test", "Primary Key1 : " + post.mPrimaryKey);
         Log.d("DB Test", "Primary Key2 : " + post1.mPrimaryKey);
         Log.d("DB Test", "Primary Key3 : " + post2.mPrimaryKey);
+        Log.d("DB Test", "User Info : " + user.mPrimaryKey);
     }
 
 }
