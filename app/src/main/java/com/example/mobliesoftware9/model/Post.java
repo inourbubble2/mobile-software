@@ -70,7 +70,7 @@ public class Post  extends DBTable
     }
 
     @Override
-    public void InsertOrUpdateToDB()
+    public void NewlyInsertToDB()
     {
 
     }

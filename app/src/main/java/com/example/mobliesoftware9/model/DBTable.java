@@ -11,15 +11,33 @@ import java.util.Vector;
 abstract  public class DBTable
 {
     public int mPrimaryKey;
-    DatabaseManager.ColumnContainer mPrimaryKeyColumnContainer = new DatabaseManager.ColumnContainer("primaryKey", "interger", true);
+    DatabaseManager.ColumnContainer mPrimaryKeyColumnContainer = new DatabaseManager.ColumnContainer("mPrimaryKey", "interger", true);
 
     public static SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public abstract String GetTableName();
 
     public abstract Vector<DatabaseManager.ColumnContainer> GetCreate();
+
+    //GetCurrentContentValue에서는 절대 PrimaryKey 넣으면 안된다.
     public abstract ContentValues GetCurrentContentValue();
-    public abstract void InsertOrUpdateToDB();
+
+    public void NewlyInsertToDB()
+    {
+        DatabaseManager.GetInstance().InsertNewData(this.GetTableName(), this.GetCurrentContentValue());
+    }
+
+    //Update CurrentData with PrimaryKey
+    public void UpdateToDB()
+    {
+        DatabaseManager.GetInstance().UpdateData(
+                this.GetTableName(),
+                this.GetCurrentContentValue(),
+                new String[]{"mPrimaryKey"},
+                new String[]{Integer.toString(this.mPrimaryKey)}
+                );
+    }
+
     public abstract void LoadFromDB();
     public abstract void DeleteFromDB();
 

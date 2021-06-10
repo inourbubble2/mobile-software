@@ -57,7 +57,7 @@ public class Comment extends DBTable
     }
 
     @Override
-    public void InsertOrUpdateToDB()
+    public void NewlyInsertToDB()
     {
 
     }

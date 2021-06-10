@@ -146,7 +146,6 @@ public class DatabaseManager extends AppCompatActivity
     }
 
 
-    //return : Primary Key
     //
     //사용법 :
     //
@@ -154,49 +153,82 @@ public class DatabaseManager extends AppCompatActivity
     //insertedData.put("id", "kmsjkh");
     //DatabaseManager.GetInstance().InsertData("tableName", insertedData);
     //
-    long InsertOrUpdateColumnData(String tableName, ContentValues insertedData)
+    public long InsertNewData(String tableName, ContentValues insertedData)
     {
         if (mDatabase != null)
         {
-            long nowRowID = mDatabase.replaceOrThrow (tableName, null, insertedData);
-            return nowRowID;
+            long rowID = mDatabase.insert (tableName, null, insertedData);
+            return rowID;
         }
         else {
             throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
         }
     }
 
+    // Get Where Query from whereColumnName
+    public static String GetWhereQuery(String[] whereColumnName)
+    {
+        String whereQuery = new String();
+        for(int i = 0 ; i < whereColumnName.length ; i++)
+        {
+            if(i != 0)
+            {
+                whereQuery += "AND"; //!!!!!!
+            }
+            whereQuery += whereColumnName[i];
+            whereQuery += "=?";
+        }
+        return whereQuery;
+    }
 
 
-    public
-    void UpdateColumnData(String tableName, ContentValues updatedData,
-                          String wherePrimaryKeyColumnName, String[] primaryKey)
+    // 사용법 :
+    // UpdateColumnData("table명", updatedData, "where 조건문 ex) mPrimaryKey", "2");
+    // = mPrimaryKey가 "2"인 row(데이터)를 모두 updatedData로 Update하라
+    //
+    //
+    // UpdateColumnData("table명", updatedData, new String[]{"name", "age"}, new String[]{"John", "12"});
+    // // = name이 "John" 이고(AND) age가 12인 row(데이터)를 모두 updatedData로 Update하라
+    //
+    //
+    // whereColumCompareData가 String[]인 이유 : SQLite가 다른 type은 허용안함
+    // 그래서 integer도 String으로 변환해서 넘겨야한다.
+    public void UpdateData(String tableName, ContentValues updatedData,
+                           String[] whereColumnNames, String[] whereColumnCompareData)
     {
         if (mDatabase != null)
         {
-            mDatabase.update (tableName, updatedData, wherePrimaryKeyColumnName + "=?", primaryKey);
-
+            mDatabase.update (tableName, updatedData, GetWhereQuery(whereColumnNames), whereColumnCompareData);
         }
         else {
             throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
         }
     }
 
-    void DeleteColumnData(String tableName, String whereColumn, String[] whereData)
+    // 사용법 :
+    // DeleteColumnData("table명", "where 조건문 ex) mPrimaryKey", "2");
+    // = mPrimaryKey가 "2"인 row(데이터)를 삭제하라
+    //
+    // DeleteColumnData("table명", new String[]{"name", "age"}, new String[]{"John", "12"});
+    // // = name이 "John" 이고(AND) age가 12인 row(데이터)를 모두 삭제하라
+    //
+    // whereColumCompareData가 String[]인 이유 : SQLite가 다른 type은 허용안함
+    // 그래서 integer도 String으로 변환해서 넘겨야한다.
+    void DeleteColumnData(String tableName, String[] whereColumnNames, String[] whereColumnCompareData)
     {
         if (mDatabase != null)
         {
-            mDatabase.delete(tableName, whereColumn + " LIKE ?", whereData);
+            mDatabase.delete(tableName, whereColumnNames + " LIKE ?", whereColumnCompareData);
         }
         else {
             throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
         }
     }
 
-    public Cursor SelectData(String selectQueryStr)
+    public CursorHelper SelectData(String selectQueryStr)
     {
         if (mDatabase != null) {
-            return mDatabase.rawQuery(selectQueryStr, null);
+            return new CursorHelper( mDatabase.rawQuery(selectQueryStr, null) );
         }
         else
         {
@@ -204,6 +236,33 @@ public class DatabaseManager extends AppCompatActivity
         }
     }
 
+
+    // 사용법
+    // Cursor resultCursor = SelectData("table명", new String[]{"mPrimaryKey", "name", "age", "height"},
+    //                             new String[]{"age"}, new String[]{"12"},
+    //                             "age", "height"
+    //                            );
+    //
+    //  "table명"의 테이블에서 column "age"가 12이인 모든 data(row)에서 
+    //  "mPrimaryKey", "name", "age", "height" 데이터를 가져오라. 
+    //  그리고 같은 "age"끼리 grouping을 하고, "height" 순으로 ordering해라
+    //
+    public CursorHelper SelectData(String tableName, String[] selectColumnNames,
+                             String[] whereColumnNames, String[] whereColumnCompareData,
+                             String groupByColumnName, String orderByColumName
+    )
+    {
+        if (mDatabase != null)
+        {
+            return new CursorHelper( mDatabase.query(tableName, selectColumnNames,
+                    GetWhereQuery(whereColumnNames), whereColumnCompareData,
+                    groupByColumnName, null, orderByColumName) );
+        }
+        else {
+            throw new AssertionError("데이터베이스가 아직 오픈 되지 않았습니다");
+        }
+    }
+    }
     /*
     public Cursor selectData(String tableName)
     {
@@ -224,7 +283,7 @@ public class DatabaseManager extends AppCompatActivity
             }
 
 
-            cursor.close(); //cursor라는것도 실제 데이터베이스 저장소를 접근하는 것이기 때문에 자원이 한정되있다. 그러므로 웬만하면 마지막에 close를 꼭 해줘야한다.
+            //cursor.close(); //cursor라는것도 실제 데이터베이스 저장소를 접근하는 것이기 때문에 자원이 한정되있다. 그러므로 웬만하면 마지막에 close를 꼭 해줘야한다.
         }
     }
     */
