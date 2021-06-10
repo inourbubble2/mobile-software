@@ -41,8 +41,7 @@ public class MainActivity extends AppCompatActivity {
         TestDB();
     }
 
-    void TestDB()
-    {
+    void TestDB() {
         //Test Code
         //어플 킬 때 마다 기존 DB 초기화함
         this.getApplicationContext().deleteDatabase(DatabaseManager.DB_NAME);
@@ -77,11 +76,10 @@ public class MainActivity extends AppCompatActivity {
         //cursorWrapper은 조건문에 일치하는 모든 row 들고 있다.
         CursorWrapper cursorWrapper = DatabaseManager.GetInstance().SelectRows(post.GetTableName(), null, null, null, null, null);
 
-        for (int i = 0; i < cursorWrapper.mCursor.getCount(); i++)
-        {
+        for (int i = 0; i < cursorWrapper.mCursor.getCount(); i++) {
             cursorWrapper.mCursor.moveToNext();//이걸 해줘야 다음 레코드로 넘어가게된다.
             Log.d("DB Test", cursorWrapper.GetStringData("writerID"));
+
         }
     }
-
 }
