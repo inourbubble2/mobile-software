@@ -1,6 +1,7 @@
 package com.example.mobliesoftware9;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mobliesoftware9.DB.CursorWrapper;
+import com.example.mobliesoftware9.DB.DatabaseManager;
 import com.example.mobliesoftware9.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -49,6 +52,25 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 // Check ID and E-mail duplication from DB
+                //
+                try {
+                    CursorWrapper duplicatedUsernameCursor = DatabaseManager.GetInstance().SelectRows("User", null, new String[]{"username"}, new String[]{username}, null, null);
+                    CursorWrapper duplicatedEmailCursor = DatabaseManager.GetInstance().SelectRows("User", null, new String[]{"email"}, new String[]{email}, null, null);
+
+                    if (duplicatedUsernameCursor.mCursor.getCount() > 0) {
+                        Toast.makeText(getApplicationContext(), "중복된 유저 이름입니다.", Toast.LENGTH_LONG).show();
+                        return;
+                    } else if (duplicatedEmailCursor.mCursor.getCount() > 0) {
+                        Toast.makeText(getApplicationContext(), "중복된 이메일입니다.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                } catch (SQLiteException e) {
+                    // 아직 해당 테이블을 생성하지 않았을 때 발생하는 에러
+                    // 테이블이 없으니 중복될 리 없으므로 넘어감
+                }
+
+
 
                 // Check passwords
                 if (!password.equals(checkPassword)) {
