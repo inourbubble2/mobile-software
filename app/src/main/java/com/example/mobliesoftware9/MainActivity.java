@@ -6,7 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.mobliesoftware9.DB.CursorWrapper;
 import com.example.mobliesoftware9.DB.DatabaseManager;
@@ -21,13 +27,36 @@ public class MainActivity extends AppCompatActivity {
     Button btnGoToLogin;
     Button btnGoToRegister;
 
+    //main 화면 anim variables
+    Animation topLeafAnim, bottomLeafAnim, appNameAnim, buttonAnim;
+    ImageView topLeafImage, bottomLeafImage;
+    TextView appName;
+    LinearLayout buttonBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         
         // 홈 화면에서 오늘의 이미지 불러오기
         // 탭이나 토글로 글 조회나 세팅 부분으로 이동 가능
+
+        //메인화면 anims
+        topLeafAnim = AnimationUtils.loadAnimation(this, R.anim.top_leaf_anim);
+        bottomLeafAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_leaf_anim);
+        appNameAnim = AnimationUtils.loadAnimation(this, R.anim.app_name_anim);
+        buttonAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_leaf_anim);
+
+        topLeafImage = findViewById(R.id.topLeaf);
+        bottomLeafImage = findViewById(R.id.bottomLeaf);
+        appName = findViewById(R.id.appName);
+        buttonBar = findViewById(R.id.buttonBar);
+
+        topLeafImage.setAnimation(topLeafAnim);
+        bottomLeafImage.setAnimation(bottomLeafAnim);
+        appName.setAnimation(appNameAnim);
+        buttonBar.setAnimation(buttonAnim);
 
         btnGoToLogin = (Button) findViewById(R.id.btnGoToLogin);
         btnGoToRegister = (Button) findViewById(R.id.btnGoToRegister);
