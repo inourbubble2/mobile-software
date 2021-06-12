@@ -22,13 +22,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".CreatePostActivity">
-
-        </activity>
-
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".BoardActivity"></activity>
+        <activity android:name=".CreatePostActivity"></activity>
+        <activity android:name=".ReadPostActivity"></activity>
+        <activity android:name=".SettingActivity"></activity>
+
+
     </application>
 
 </manifest>
