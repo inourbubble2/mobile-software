@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D5E3E1">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/loadedImagePost"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/home_example"
+        android:foreground="@drawable/image_border"/>
+
+    <FrameLayout
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/frame_border">
+
+        <EditText
+            android:id="@+id/txtUserPost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Enter comment..."
+            android:fontFamily="cursive"
+            android:textSize="25sp"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="520dp"
+        android:layout_marginStart="32dp">
+
+        <Button
+            android:id="@+id/btnSetPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Post"
+            android:fontFamily="cursive"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginStart="50dp"
+            android:background="@drawable/gradient_shape"/>
+
+        <Button
+            android:id="@+id/btnCancelPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:fontFamily="cursive"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginStart="60dp"
+            android:background="@drawable/gradient_shape"/>
+    </LinearLayout>
+
+</RelativeLayout>

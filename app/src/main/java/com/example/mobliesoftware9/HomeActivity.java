@@ -3,6 +3,8 @@ package com.example.mobliesoftware9;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
+    private Button btnGoToWritePost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +20,15 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         // 오늘의 사진이나 설정, 글조희 등 기능들로 이동
+
+        btnGoToWritePost = (Button) findViewById(R.id.btnGoToWritePost);
+
+        btnGoToWritePost.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, CreatePostActivity.class));
+            }
+        });
+
 
         //navbar variable
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navbar);
