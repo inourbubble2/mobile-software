@@ -86,6 +86,20 @@ public class Post  extends DBTable
         this.hashtag = cursor.GetStringData("hashtag");
     }
 
+    protected boolean DataValidChecker()
+    {
+        if(writerID.isEmpty() || writerID == null)
+        {
+            return false;
+        }
+        if(title.isEmpty() || title == null)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     Vector<Comment> GetCommentsOfThisPost()
     {
         CursorWrapper commentsCursor = DatabaseManager.GetInstance().SelectRows("Comment", null, new String[]{"postID"}, new String[]{Integer.toString(this.mPrimaryKey)}, null, null);

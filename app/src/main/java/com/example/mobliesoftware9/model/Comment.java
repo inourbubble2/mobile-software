@@ -61,6 +61,16 @@ public class Comment extends DBTable
     }
 
     @Override
+    protected boolean DataValidChecker()
+    {
+        if(writerID.isEmpty() || writerID == null)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public void LoadFromDB(CursorWrapper cursor) {
         this.mPrimaryKey = cursor.GetIntegerData(DBTable.mPrimaryKeyColumnName);
         this.postID = cursor.GetIntegerData("postID");

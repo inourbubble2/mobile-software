@@ -98,14 +98,17 @@ public class MainActivity extends AppCompatActivity {
 
         Post post = new Post();
         post.writerID = "John";
+        post.title = "Good1";
         post.likedCount = 10;
 
         Post post1 = new Post();
         post1.writerID = "Max";
+        post1.title = "Good1";
         post1.likedCount = 1;
 
         Post post2 = new Post();
         post2.writerID = "Boy";
+        post2.title = "Good1";
         post2.likedCount = 55;
 
         post.CreateTable();

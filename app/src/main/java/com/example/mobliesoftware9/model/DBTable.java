@@ -36,9 +36,15 @@ abstract  public class DBTable
     //GetCurrentContentValue에서는 절대 PrimaryKey 넣으면 안된다.
     public abstract ContentValues GetCurrentContentValue();
 
+    protected abstract boolean DataValidChecker();
+
     // DB에 새로운 Data를 넣음
     public void NewlyInsertToDB()
     {
+        if(DataValidChecker() == false)
+        {
+            new AssertionError("Data is not valid");
+        }
         long row = DatabaseManager.GetInstance().InsertNewRow(this.GetTableName(), this.GetCurrentContentValue());
         CursorWrapper cursorHelper = DatabaseManager.GetInstance().SelectRowWithRowID(this.GetTableName(), row);
         cursorHelper.mCursor.moveToFirst();

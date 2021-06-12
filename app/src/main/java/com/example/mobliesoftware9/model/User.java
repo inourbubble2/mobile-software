@@ -84,9 +84,20 @@ public class User extends DBTable {
             postsCursor.Close();
             return posts;
         }
+    }
 
+    protected boolean DataValidChecker()
+    {
+        if(username.isEmpty() || username == null)
+        {
+            return false;
+        }
+        if(password.isEmpty() || password == null)
+        {
+            return false;
+        }
 
-
+        return true;
     }
 
 }
