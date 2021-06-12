@@ -19,9 +19,9 @@ public class Post  extends DBTable
     public String writerID; // Primary Key, username of User
     public String title;
     public String content;
-    public LocalDateTime createdAt;
-    public LocalDateTime updatedAt;
-    public LocalDateTime deletedAt;
+    public LocalDateTime createdAt = DateHelper.GetCurrentDate();
+    public LocalDateTime updatedAt = DateHelper.GetCurrentDate();
+    public LocalDateTime deletedAt = DateHelper.GetCurrentDate();
     public LoadedImage attachedImg = new LoadedImage();;
     public int viewCount;
     public int likedCount;

@@ -15,7 +15,7 @@ public class User extends DBTable {
     public String username;
     public String password;
     public String email;
-    public LocalDateTime createdAt;
+    public LocalDateTime createdAt = DateHelper.GetCurrentDate();
 
     private static User instance = null;
 

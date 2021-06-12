@@ -97,6 +97,8 @@ public class DatabaseManager
                     tableName +
                     " (";
 
+            int primaryKeyCount = 0;
+            String primaryKeyList = new String();
             for(int i = 0 ; i < columns.length ; i++)
             {
                 if(i != 0)
@@ -106,16 +108,25 @@ public class DatabaseManager
 
                 queryStr += columns[i].mColumnName;
                 queryStr += ' ' + columns[i].mColumnType;
+
                 if(columns[i].mPrimaryKey == true)
                 {
-                    queryStr += " PRIMARY KEY";
+                    if(primaryKeyCount > 0)
+                    {
+                        primaryKeyList += ", ";
+                    }
+                    primaryKeyList += columns[i].mColumnName;
                     if(columns[i].mColumnType == "integer")
                     {
-                        queryStr += " autoincrement";
+                        //primaryKeyList += " autoincrement";
                     }
+
+                    primaryKeyCount++;
                 }
 
             }
+
+            queryStr += ", PRIMARY KEY (" + primaryKeyList + ')';
             queryStr += ')';
             this.CreateTable(queryStr);
 
