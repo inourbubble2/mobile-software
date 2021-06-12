@@ -51,6 +51,11 @@ public class LoginActivity extends AppCompatActivity {
                     User.setInstance(user);
 
                     Toast.makeText(getApplicationContext(), "로그인 되었습니다.", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+
                     finish();
 
                 }

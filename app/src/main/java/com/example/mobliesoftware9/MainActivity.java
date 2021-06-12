@@ -64,16 +64,18 @@ public class MainActivity extends AppCompatActivity {
         btnGoToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 로그인 된 계정 가져오는 예제
-                User loginedUser = User.getInstance();
-                
-                if (loginedUser == null) { // 로그인 안 된 상태
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    // 로그인 페이지로 이동함
-                } else { // 로그인 된 상태
-                    Log.d("TEST", "현재 로그인 된 유저 정보 : " + loginedUser.username + ", " + loginedUser.email);
-                }
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+//                // 로그인 된 계정 가져오는 예제
+//                User loginedUser = User.getInstance();
+//
+//                if (loginedUser == null) { // 로그인 안 된 상태
+//                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+//                    // 로그인 페이지로 이동함
+//                } else { // 로그인 된 상태
+//                    Log.d("TEST", "현재 로그인 된 유저 정보 : " + loginedUser.username + ", " + loginedUser.email);
+//                }
             }
         });
 
