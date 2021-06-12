@@ -23,10 +23,29 @@
             android:layout_marginStart="230dp"
             android:layout_marginTop="20dp"/>
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgUserProfile"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="100dp"
+            android:foreground="@drawable/image_border"
+            android:src="@drawable/ic_baseline_account_circle_150"
+            />
+
+        <Button
+            android:id="@+id/btnUserPicEdit"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_baseline_edit_32"
+            android:layout_marginTop="220dp"
+            android:layout_marginStart="255dp"
+            android:foreground="@drawable/button_border"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="280dp"
             android:orientation="horizontal">
 
             <TextView
@@ -59,7 +78,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="340dp"
             android:orientation="horizontal">
 
             <TextView
@@ -92,7 +111,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="260dp"
+            android:layout_marginTop="400dp"
             android:orientation="horizontal">
 
             <TextView
@@ -117,7 +136,7 @@
             android:id="@+id/btnSaveProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="400dp"
+            android:layout_marginTop="500dp"
             android:layout_marginStart="160dp"
             android:text="Save"
             android:fontFamily="cursive"
