@@ -4,12 +4,13 @@ import android.content.ContentValues;
 
 import com.example.mobliesoftware9.DB.CursorWrapper;
 import com.example.mobliesoftware9.DB.DatabaseManager;
+import com.example.mobliesoftware9.Helper.RandomNumGenerator;
 
 import java.util.Vector;
 
 abstract  public class DBTable
 {
-    public int mPrimaryKey;
+    public int mPrimaryKey = RandomNumGenerator.GetRandomPositiveInteger();
     public static final String mPrimaryKeyColumnName = new String("mPrimaryKey");
     DatabaseManager.ColumnContainer mPrimaryKeyColumnContainer = new DatabaseManager.ColumnContainer(mPrimaryKeyColumnName, "interger", true);
 
