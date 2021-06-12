@@ -6,6 +6,7 @@ import com.example.mobliesoftware9.DB.CursorWrapper;
 import com.example.mobliesoftware9.DB.DatabaseManager;
 import com.example.mobliesoftware9.DB.DateHelper;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Vector;
 
@@ -14,7 +15,7 @@ public class User extends DBTable {
     public String username;
     public String password;
     public String email;
-    public Date createdAt = new Date();
+    public LocalDateTime createdAt;
 
     private static User instance = null;
 

@@ -7,6 +7,7 @@ import com.example.mobliesoftware9.DB.DatabaseManager;
 import com.example.mobliesoftware9.DB.DateHelper;
 import com.example.mobliesoftware9.Image.LoadedImage;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Vector;
 
@@ -18,9 +19,9 @@ public class Post  extends DBTable
     public String writerID;
     public String title;
     public String content;
-    public Date createdAt = new Date();
-    public Date updatedAt= new Date();
-    public Date deletedAt= new Date();
+    public LocalDateTime createdAt;
+    public LocalDateTime updatedAt;
+    public LocalDateTime deletedAt;
     public LoadedImage attachedImg = new LoadedImage();;
     public int viewCount;
     public int likedCount;
