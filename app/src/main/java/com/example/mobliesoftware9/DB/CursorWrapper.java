@@ -2,6 +2,7 @@ package com.example.mobliesoftware9.DB;
 
 import android.database.Cursor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class CursorWrapper
@@ -18,7 +19,7 @@ public class CursorWrapper
         this.mCursor.close();
     }
 
-    public Date GetDateData(String columnName)
+    public LocalDateTime GetDateData(String columnName)
     {
         return DateHelper.StringToDate(this.mCursor.getString(this.mCursor.getColumnIndex(columnName)));
     }

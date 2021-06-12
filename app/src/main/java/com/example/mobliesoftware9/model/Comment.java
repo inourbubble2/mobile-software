@@ -6,6 +6,7 @@ import com.example.mobliesoftware9.DB.CursorWrapper;
 import com.example.mobliesoftware9.DB.DatabaseManager;
 import com.example.mobliesoftware9.DB.DateHelper;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Vector;
 
@@ -16,9 +17,9 @@ public class Comment extends DBTable
     public int postID; // Foreign Key
     public int parentID; // 답댓글 기능도 구현할 것인지?
     public String writerID;
-    public Date createdAt = new Date();;
-    public Date updatedAt = new Date();;
-    public Date deletedAt = new Date();;
+    public LocalDateTime createdAt;
+    public LocalDateTime updatedAt;
+    public LocalDateTime deletedAt;
     public int likedCount;
 
     @Override
