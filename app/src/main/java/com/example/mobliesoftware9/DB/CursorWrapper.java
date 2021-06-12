@@ -19,6 +19,22 @@ public class CursorWrapper
         this.mCursor.close();
     }
 
+    public void MoveToNext()
+    {
+        this.mCursor.moveToNext();
+    }
+
+    public int GetCount()
+    {
+        return this.mCursor.getCount();
+    }
+
+    public void Close()
+    {
+        this.mCursor.close();
+    }
+
+
     public LocalDateTime GetDateData(String columnName)
     {
         return DateHelper.StringToDate(this.mCursor.getString(this.mCursor.getColumnIndex(columnName)));

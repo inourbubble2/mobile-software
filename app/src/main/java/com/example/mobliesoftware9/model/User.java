@@ -62,4 +62,31 @@ public class User extends DBTable {
         this.email = cursor.GetStringData("email");
         this.createdAt = cursor.GetDateData("createdAt");
     }
+
+    Vector<Post> GetPostsWrittenByThisUser()
+    {
+        CursorWrapper postsCursor = DatabaseManager.GetInstance().SelectRows("Post", null, new String[]{"writerID"}, new String[]{this.username}, null, null);
+
+        if(postsCursor.mCursor.getCount() == 0)
+        {
+            return null;
+        }
+        else
+        {
+            Vector<Post> posts = new Vector<Post>();
+            for(int i = 0 ; i < postsCursor.GetCount() ; i++)
+            {
+                postsCursor.MoveToNext();
+                Post post = new Post();
+                post.LoadFromDB(postsCursor);
+                posts.add(post);
+            }
+            postsCursor.Close();
+            return posts;
+        }
+
+
+
+    }
+
 }

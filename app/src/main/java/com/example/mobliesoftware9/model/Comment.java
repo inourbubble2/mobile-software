@@ -14,7 +14,8 @@ public class Comment extends DBTable
 {
     //int commentID; // Primary Key , replaced by DBTable.mPrimaryKey
 
-    public int postID; // Foreign Key
+    public int postID; // Primary Key, mPrimaryKey of Post!!!!!!
+
     public int parentID; // 답댓글 기능도 구현할 것인지?
     public String writerID;
     public LocalDateTime createdAt;
@@ -32,7 +33,7 @@ public class Comment extends DBTable
     {
         Vector<DatabaseManager.ColumnContainer> column = new Vector<DatabaseManager.ColumnContainer>();
 
-        column.add(new DatabaseManager.ColumnContainer("postID", "integer"));
+        column.add(new DatabaseManager.ColumnContainer("postID", "integer", true));
         column.add(new DatabaseManager.ColumnContainer("parentID", "integer"));
         column.add(new DatabaseManager.ColumnContainer("writerID", "text"));
         column.add(new DatabaseManager.ColumnContainer("createdAt", "text"));
@@ -72,6 +73,10 @@ public class Comment extends DBTable
     }
 
 
+    void SetPostID(Post post)
+    {
+        this.postID = post.mPrimaryKey;
+    }
 
 
 

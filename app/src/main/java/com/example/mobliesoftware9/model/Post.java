@@ -16,7 +16,7 @@ public class Post  extends DBTable
 
     //int postID; // Primary Key , replaced by DBTable.mPrimaryKey
 
-    public String writerID;
+    public String writerID; // Primary Key, username of User
     public String title;
     public String content;
     public LocalDateTime createdAt;
@@ -39,7 +39,7 @@ public class Post  extends DBTable
     {
         Vector<DatabaseManager.ColumnContainer> column = new Vector<DatabaseManager.ColumnContainer>();
 
-        column.add(new DatabaseManager.ColumnContainer("writerID", "text"));
+        column.add(new DatabaseManager.ColumnContainer("writerID", "text", true));
         column.add(new DatabaseManager.ColumnContainer("title", "text"));
         column.add(new DatabaseManager.ColumnContainer("content", "text"));
         column.add(new DatabaseManager.ColumnContainer("createdAt", "text"));
@@ -86,6 +86,31 @@ public class Post  extends DBTable
         this.hashtag = cursor.GetStringData("hashtag");
     }
 
+    Vector<Comment> GetCommentsOfThisPost()
+    {
+        CursorWrapper commentsCursor = DatabaseManager.GetInstance().SelectRows("Comment", null, new String[]{"postID"}, new String[]{Integer.toString(this.mPrimaryKey)}, null, null);
+
+        if(commentsCursor.mCursor.getCount() == 0)
+        {
+            return null;
+        }
+        else
+        {
+            Vector<Comment> comments = new Vector<Comment>();
+            for(int i = 0 ; i < commentsCursor.GetCount() ; i++)
+            {
+                commentsCursor.MoveToNext();
+                Comment comment = new Comment();
+                comment.LoadFromDB(commentsCursor);
+                comments.add(comment);
+            }
+            commentsCursor.Close();
+            return comments;
+        }
+
+
+
+    }
 
 
 }
