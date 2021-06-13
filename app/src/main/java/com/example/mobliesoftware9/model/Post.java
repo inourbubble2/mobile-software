@@ -115,12 +115,21 @@ public class Post  extends DBTable
         }
     }
 
-    /*
-    void AddComment(String writerID)
+    void AddComment(Comment newComment)
     {
-        Comment newComment;
+        newComment.SetPostID(this);
+        newComment.NewlyInsertToDB();
     }
-    */
+
+    void AddComment(String writerID, String commentStr)
+    {
+        Comment newComment = new Comment();
+
+        newComment.writerID = writerID;
+        newComment.mContent = commentStr;
+        this.AddComment(newComment);
+    }
+
 
 
 }
