@@ -6,10 +6,16 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BoardActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private LinearLayoutManager layoutManager;
+    ScrollAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +23,14 @@ public class BoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_board);
 
         // 내가 쓴 글 목록 조회
+
+        //user post recycler
+        recyclerView = (RecyclerView) findViewById(R.id.postRecycler);
+        layoutManager = new LinearLayoutManager(this);
+        adapter = new ScrollAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+
 
         //navbar variable
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navbar);

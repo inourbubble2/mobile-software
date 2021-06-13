@@ -33,11 +33,12 @@
 
         <Button
             android:id="@+id/btnGoToWritePost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Write Post"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="480dp"/>
+            android:layout_marginTop="480dp"
+            android:background="@drawable/ic_baseline_post_add_32"
+            android:backgroundTint="@color/green"/>
 
     </FrameLayout>
 
