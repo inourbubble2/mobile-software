@@ -78,6 +78,12 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
+                // Check email
+                if (email.contains("@") == false && email.contains(".") == false) {
+                    Toast.makeText(getApplicationContext(), "올바른 이메일을 입력하세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 // Save to DB
                 User newUser = new User();
                 newUser.username = username;
