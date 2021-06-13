@@ -20,8 +20,6 @@ public class Post  extends DBTable
     public String title;
     public String content;
     public LocalDateTime createdAt = DateHelper.GetCurrentDate();
-    public LocalDateTime updatedAt = DateHelper.GetCurrentDate();
-    public LocalDateTime deletedAt = DateHelper.GetCurrentDate();
     public LoadedImage attachedImg = new LoadedImage();;
     public int viewCount = 0;
     public int likedCount = 0;
@@ -43,8 +41,6 @@ public class Post  extends DBTable
         column.add(new DatabaseManager.ColumnContainer("title", "text"));
         column.add(new DatabaseManager.ColumnContainer("content", "text"));
         column.add(new DatabaseManager.ColumnContainer("createdAt", "text"));
-        column.add(new DatabaseManager.ColumnContainer("updatedAt", "text"));
-        column.add(new DatabaseManager.ColumnContainer("deletedAt", "text"));
         column.add(new DatabaseManager.ColumnContainer("attachedImageURL", "text"));
         column.add(new DatabaseManager.ColumnContainer("viewCount", "integer"));
         column.add(new DatabaseManager.ColumnContainer("likedCount", "integer"));
@@ -62,8 +58,6 @@ public class Post  extends DBTable
         contentValues.put("title", this.title);
         contentValues.put("content", this.content);
         contentValues.put("createdAt", DateHelper.DateToString(this.createdAt));
-        contentValues.put("updatedAt", DateHelper.DateToString(this.updatedAt));
-        contentValues.put("deletedAt", DateHelper.DateToString(this.deletedAt));
         contentValues.put("attachedImageURL", attachedImg.mImageURL);
         contentValues.put("viewCount", this.viewCount);
         contentValues.put("likedCount", this.likedCount);
@@ -78,8 +72,6 @@ public class Post  extends DBTable
         this.title = cursor.GetStringData("title");
         this.content = cursor.GetStringData("content");
         this.createdAt = cursor.GetDateData("createdAt");
-        this.updatedAt = cursor.GetDateData("updatedAt");
-        this.deletedAt = cursor.GetDateData("deletedAt");
         this.attachedImg.mImageURL = cursor.GetStringData("attachedImageURL");
         this.viewCount = cursor.GetIntegerData("viewCount");
         this.likedCount = cursor.GetIntegerData("likedCount");
@@ -121,10 +113,14 @@ public class Post  extends DBTable
             commentsCursor.Close();
             return comments;
         }
-
-
-
     }
+
+    /*
+    void AddComment(String writerID)
+    {
+        Comment newComment;
+    }
+    */
 
 
 }
