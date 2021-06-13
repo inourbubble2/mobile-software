@@ -23,8 +23,8 @@ public class Post  extends DBTable
     public LocalDateTime updatedAt = DateHelper.GetCurrentDate();
     public LocalDateTime deletedAt = DateHelper.GetCurrentDate();
     public LoadedImage attachedImg = new LoadedImage();;
-    public int viewCount;
-    public int likedCount;
+    public int viewCount = 0;
+    public int likedCount = 0;
 
     //HashTag는 하나만 저장 ( 여러개 하려니 DB에 저장하기 까다로움 )
     public String hashtag;
