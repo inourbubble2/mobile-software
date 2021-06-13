@@ -6,10 +6,14 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ReadPostActivity  extends AppCompatActivity {
+
+    private ViewPager viewPager;
+    private SlideAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +22,11 @@ public class ReadPostActivity  extends AppCompatActivity {
 
         // 글 조회
         // 댓글 관련 부분도 함께 있어야 됨
+
+        //post slider
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        myAdapter = new SlideAdapter(this);
+        viewPager.setAdapter(myAdapter);
 
         //navbar variable
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navbar);
