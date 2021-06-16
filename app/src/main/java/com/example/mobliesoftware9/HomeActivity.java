@@ -1,18 +1,34 @@
 package com.example.mobliesoftware9;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mobliesoftware9.Image.ImageLoader;
+import com.example.mobliesoftware9.Image.LoadedImage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class HomeActivity extends AppCompatActivity {
     private Button btnGoToWritePost;
+    private ImageView loadedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +36,13 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         // 오늘의 사진이나 설정, 글조희 등 기능들로 이동
-
         btnGoToWritePost = (Button) findViewById(R.id.btnGoToWritePost);
+        loadedImage = (ImageView) findViewById(R.id.loadedImage);
+
+        // 오늘의 사진 불러오기
+        ImageLoader imgLoader  = new ImageLoader();
+        LoadedImage img = imgLoader.LoadRandomImage(300,300);
+        loadedImage.setImageBitmap(img.mBitmap);
 
         btnGoToWritePost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
