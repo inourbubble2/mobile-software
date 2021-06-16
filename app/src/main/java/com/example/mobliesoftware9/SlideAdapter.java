@@ -60,7 +60,7 @@ public class SlideAdapter extends PagerAdapter {
 
         Button btnLike = (Button) view.findViewById(R.id.btnLike);
         Button btnComment = (Button) view.findViewById(R.id.btnComment);
-        Button btnShare = (Button) view.findViewById(R.id.btnComment);
+        Button btnShare = (Button) view.findViewById(R.id.btnShare);
 
         btnLike.setOnClickListener(v -> {
             if (post.OnClickLikeButton()) {

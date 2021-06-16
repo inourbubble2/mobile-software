@@ -60,7 +60,7 @@ public class BoardActivity extends AppCompatActivity {
         //user post recycler
         recyclerView = (RecyclerView) findViewById(R.id.postRecycler);
         layoutManager = new LinearLayoutManager(this);
-        adapter = new ScrollAdapter(this, dataSet);
+        adapter = new ScrollAdapter(getApplicationContext(), dataSet);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
