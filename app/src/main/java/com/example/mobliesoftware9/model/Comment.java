@@ -82,6 +82,22 @@ public class Comment extends DBTable
         this.postID = post.mPrimaryKey;
     }
 
+    private boolean localUserLiked = false;
+    public boolean OnClickLikeButton()
+    {
+        if(localUserLiked == true)
+        {
+            this.likedCount--;
+        }
+        else
+        {
+            this.likedCount++;
+        }
+        localUserLiked = !localUserLiked;
+        this.UpdateToDB();
+
+        return localUserLiked;
+    }
 
 
 }

@@ -21,7 +21,7 @@
             android:id="@+id/inputComment"
             android:layout_width="310dp"
             android:layout_height="wrap_content"
-            android:hint="뎃글 입력"
+            android:hint="댓글 입력"
             android:fontFamily="@font/nanum"
             android:textSize="25sp"
             android:paddingStart="10dp"/>
