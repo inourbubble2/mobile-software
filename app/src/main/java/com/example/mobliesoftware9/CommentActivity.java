@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,16 +30,21 @@ public class CommentActivity extends AppCompatActivity {
     private LinearLayoutManager layoutManager;
     CommentScrollAdapter adapter;
 
+    private ImageView imageView;
     private EditText inputComment;
     private Button btnPostComment;
 
     ArrayList<Comment> dataSet = new ArrayList<Comment>();
     Post post;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.comment_popup);
+
+        imageView = (ImageView) findViewById(R.id.commentedImg);
 
         // 게시글 내용 불러오기
         Intent intent = getIntent();
@@ -49,6 +55,8 @@ public class CommentActivity extends AppCompatActivity {
         post.mPrimaryKey = postPrimaryKey;
         ImageLoader imageLoader = new ImageLoader();
         post.attachedImg = imageLoader.LoadImageFromURL(postCursor.GetStringData("attachedImageURL"));
+
+        imageView.setImageBitmap(post.attachedImg.mBitmap);
 
         // 댓글 불러오기
         try {
@@ -85,10 +93,12 @@ public class CommentActivity extends AppCompatActivity {
             inputComment.setText("");
 
             dataSet.add(newComment);
+
             recyclerView.getAdapter().notifyDataSetChanged();
 
             Log.d("DB Test", newComment.mPrimaryKey + " 작성 완료");
             Toast.makeText(getApplicationContext(), "작성이 완료되었습니다.", Toast.LENGTH_SHORT);
+            recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView,new RecyclerView.State(), recyclerView.getAdapter().getItemCount());
 
 
         });
@@ -102,4 +112,5 @@ public class CommentActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
     }
+
 }
