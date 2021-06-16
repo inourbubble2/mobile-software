@@ -43,11 +43,13 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:id="@+id/editPost"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@drawable/ic_baseline_edit_32"
                 android:backgroundTint="@color/white"/>
             <Button
+                android:id="@+id/deletePost"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="10dp"
