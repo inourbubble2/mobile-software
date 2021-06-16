@@ -65,10 +65,10 @@ public class SlideAdapter extends PagerAdapter {
         btnLike.setOnClickListener(v -> {
             if (post.OnClickLikeButton()) {
                 btnLike.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-                Toast.makeText(v.getContext(), "좋아요 버튼을 눌렀습니다.", Toast.LENGTH_SHORT);
+                Toast.makeText(context, "좋아요 버튼을 눌렀습니다.", Toast.LENGTH_SHORT).show();
             } else {
                 btnLike.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
-                Toast.makeText(v.getContext(), "좋아요를 해제했습니다.", Toast.LENGTH_SHORT);
+                Toast.makeText(context, "좋아요를 해제했습니다.", Toast.LENGTH_SHORT).show();
             }
 
         });
