@@ -14,6 +14,11 @@ abstract  public class DBTable
     public static final String mPrimaryKeyColumnName = new String("mPrimaryKey");
     DatabaseManager.ColumnContainer mPrimaryKeyColumnContainer = new DatabaseManager.ColumnContainer(mPrimaryKeyColumnName, "interger", true);
 
+    public DBTable()
+    {
+        mPrimaryKey = RandomNumGenerator.GetRandomPositiveInteger();
+    }
+
 
 
     public abstract String GetTableName();

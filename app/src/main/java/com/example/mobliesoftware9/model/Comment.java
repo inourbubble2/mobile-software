@@ -46,6 +46,7 @@ public class Comment extends DBTable
     {
         ContentValues contentValues = new ContentValues();
 
+        contentValues.put(DBTable.mPrimaryKeyColumnName, this.mPrimaryKey);
         contentValues.put("postID", this.postID);
         contentValues.put("writerID", this.writerID);
         contentValues.put("mContent", this.mContent);
