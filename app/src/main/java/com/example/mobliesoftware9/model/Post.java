@@ -171,6 +171,9 @@ public class Post  extends DBTable
         return localUserLiked;
     }
 
-
+    public boolean GetLocalUserLiked()
+    {
+        return localUserLiked;
+    }
 
 }

@@ -44,6 +44,9 @@ public class CommentScrollAdapter extends RecyclerView.Adapter<CommentScrollAdap
         holder.usernameComment.setText(comment.writerID);
         holder.userComment.setText(comment.mContent);
 
+        String dateStr = Integer.toString(comment.createdAt.getYear()) +'/'+comment.createdAt.getMonthValue() +'/'+comment.createdAt.getDayOfMonth() ;
+        holder.commentDate.setText(dateStr);
+
         holder.commentLike.setOnClickListener(view -> {
             if (comment.OnClickLikeButton()) {
                 holder.commentLike.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
@@ -66,13 +69,17 @@ public class CommentScrollAdapter extends RecyclerView.Adapter<CommentScrollAdap
         ImageView userProfImage;
         TextView usernameComment;
         TextView userComment;
+        TextView commentDate;
         Button commentLike;
         public VHolder(View itemView) {
             super(itemView);
             userProfImage = (ImageView) itemView.findViewById(R.id.imgCommentUser);
             usernameComment = (TextView) itemView.findViewById(R.id.usernameComment);
             userComment = (TextView) itemView.findViewById(R.id.userComment);
+            commentDate = (TextView) itemView.findViewById(R.id.commentDate);
+
             commentLike = (Button) itemView.findViewById(R.id.commentLike);
+
         };
 
     }

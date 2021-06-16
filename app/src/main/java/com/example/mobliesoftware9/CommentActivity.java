@@ -111,6 +111,8 @@ public class CommentActivity extends AppCompatActivity {
         adapter = new CommentScrollAdapter(this, dataSet, post);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView,new RecyclerView.State(), recyclerView.getAdapter().getItemCount());
+
     }
 
 }

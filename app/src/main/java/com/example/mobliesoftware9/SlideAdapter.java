@@ -51,26 +51,31 @@ public class SlideAdapter extends PagerAdapter {
         ImageView imgSlide = (ImageView) view.findViewById(R.id.slideImg);
         TextView postSlide = (TextView) view.findViewById(R.id.userPost);
         TextView postUser = (TextView) view.findViewById(R.id.postUsername);
+        TextView likedCount = (TextView) view.findViewById(R.id.noOfLike);
 
         Post post = dataSet[position];
         imgSlide.setImageBitmap(post.attachedImg.mBitmap);
         postSlide.setText(post.title);
         postUser.setText(post.writerID);
+        likedCount.setText(Integer.toString(post.likedCount));
+
         container.addView(view);
 
         Button btnLike = (Button) view.findViewById(R.id.btnLike);
+        UpdateLikeButtonState(btnLike, post);
+
         Button btnComment = (Button) view.findViewById(R.id.btnComment);
         Button btnShare = (Button) view.findViewById(R.id.btnShare);
 
         btnLike.setOnClickListener(v -> {
             if (post.OnClickLikeButton()) {
-                btnLike.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
+                likedCount.setText(Integer.toString(post.likedCount));
                 Toast.makeText(context, "좋아요 버튼을 눌렀습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                btnLike.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+                likedCount.setText(Integer.toString(post.likedCount));
                 Toast.makeText(context, "좋아요를 해제했습니다.", Toast.LENGTH_SHORT).show();
             }
-
+            UpdateLikeButtonState(btnLike, post);
         });
 
         btnComment.setOnClickListener(v -> {
@@ -90,4 +95,17 @@ public class SlideAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((RelativeLayout)object);
     }
+
+    private void UpdateLikeButtonState(Button likeButton, Post post)
+    {
+        if(post.GetLocalUserLiked() == true)
+        {
+            likeButton.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
+        }
+        else
+        {
+            likeButton.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+        }
+    }
+
 }
