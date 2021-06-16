@@ -16,11 +16,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Board"
-            android:fontFamily="cursive"
+            android:text="내 게시글"
+            android:fontFamily="@font/nanum"
             android:textColor="@color/green"
-            android:textSize="45sp"
-            android:layout_marginStart="230dp"
+            android:textSize="70sp"
+            android:layout_marginStart="190dp"
             android:layout_marginTop="20dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
