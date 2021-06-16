@@ -16,14 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mobliesoftware9.model.Comment;
 import com.example.mobliesoftware9.model.Post;
 
+import java.util.ArrayList;
+
 public class CommentScrollAdapter extends RecyclerView.Adapter<CommentScrollAdapter.VHolder> {
 
     Context context;
 
-    Comment[] dataSet;
+    ArrayList<Comment> dataSet;
     Post post;
 
-    public CommentScrollAdapter(Context context, Comment[] dataSet, Post post) {
+    public CommentScrollAdapter(Context context, ArrayList<Comment> dataSet, Post post) {
         this.context = context;
         this.dataSet = dataSet;
         this.post = post;
@@ -37,7 +39,7 @@ public class CommentScrollAdapter extends RecyclerView.Adapter<CommentScrollAdap
 
     @Override
     public void onBindViewHolder(VHolder holder, int position) {
-        Comment comment = dataSet[position];
+        Comment comment = dataSet.get(position);
         holder.userProfImage.setImageBitmap(post.attachedImg.mBitmap);
         holder.usernameComment.setText(comment.writerID);
         holder.userComment.setText(comment.mContent);
@@ -57,7 +59,7 @@ public class CommentScrollAdapter extends RecyclerView.Adapter<CommentScrollAdap
 
     @Override
     public int getItemCount() {
-        return dataSet != null ? dataSet.length : 0;
+        return dataSet != null ? dataSet.size() : 0;
     }
 
     public class VHolder extends RecyclerView.ViewHolder {

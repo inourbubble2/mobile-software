@@ -21,6 +21,8 @@ import com.example.mobliesoftware9.model.Comment;
 import com.example.mobliesoftware9.model.Post;
 import com.example.mobliesoftware9.model.User;
 
+import java.util.ArrayList;
+
 public class CommentActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -30,7 +32,7 @@ public class CommentActivity extends AppCompatActivity {
     private EditText inputComment;
     private Button btnPostComment;
 
-    Comment[] dataSet;
+    ArrayList<Comment> dataSet = new ArrayList<Comment>();
     Post post;
 
     @Override
@@ -55,11 +57,12 @@ public class CommentActivity extends AppCompatActivity {
             commentCursor.mCursor.moveToNext();
 
             int cnt = commentCursor.mCursor.getCount();
-            dataSet = new Comment[cnt];
+            dataSet.ensureCapacity(cnt);
+
             for (int i = 0; i < cnt; i++) {
                 Comment comment = new Comment();
                 comment.LoadFromCursor(commentCursor);
-                dataSet[i] = comment;
+                dataSet.add(comment);
 
                 commentCursor.mCursor.moveToNext();
             }
@@ -71,18 +74,27 @@ public class CommentActivity extends AppCompatActivity {
         btnPostComment = (Button) findViewById(R.id.btnPostComment);
         btnPostComment.setOnClickListener(view -> {
             User currentUser = User.getInstance();
-            Comment comment = new Comment();
-            comment.postID = postPrimaryKey;
-            comment.writerID = currentUser.username;
-            comment.mContent = inputComment.getText().toString();
+            Comment newComment = new Comment();
+            newComment.postID = postPrimaryKey;
+            newComment.writerID = currentUser.username;
+            newComment.mContent = inputComment.getText().toString();
 
-            comment.CreateTable();
-            comment.NewlyInsertToDB();
+            newComment.CreateTable();
+            newComment.NewlyInsertToDB();
 
             inputComment.setText("");
-            Log.d("DB Test", comment.mPrimaryKey + " 작성 완료");
+
+            dataSet.add(newComment);
+            recyclerView.getAdapter().notifyDataSetChanged();
+
+            Log.d("DB Test", newComment.mPrimaryKey + " 작성 완료");
             Toast.makeText(getApplicationContext(), "작성이 완료되었습니다.", Toast.LENGTH_SHORT);
+
+
         });
+
+        ArrayList<Comment> a;
+
 
         recyclerView = (RecyclerView) findViewById(R.id.commentRecycler);
         layoutManager = new LinearLayoutManager(this);
