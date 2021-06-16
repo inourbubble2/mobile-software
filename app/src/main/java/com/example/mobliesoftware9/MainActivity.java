@@ -92,49 +92,49 @@ public class MainActivity extends AppCompatActivity {
     void TestDB() {
         //Test Code
         //어플 킬 때 마다 기존 DB 초기화함
-        // this.getApplicationContext().deleteDatabase(DatabaseManager.DB_NAME);
+        this.getApplicationContext().deleteDatabase(DatabaseManager.DB_NAME);
 
         DatabaseManager.GetInstance().OpenDatabase(this.getApplicationContext());
 
         //LoadedImage image = new ImageLoader().LoadRandomImage(200, 300);
 
-        Post post = new Post();
-        post.writerID = "John";
-        post.title = "Good1";
-        post.likedCount = 10;
-        post.content = "fdfsdfdf";
-        post.title = "aaa";
-        post.attachedImg = new ImageLoader().LoadRandomImage(300,300);
-        post.SharePost(this);
-
-        Post post1 = new Post();
-        post1.writerID = "Max";
-        post1.title = "Good1";
-        post1.likedCount = 1;
-
-        Post post2 = new Post();
-        post2.writerID = "Boy";
-        post2.title = "Good1";
-        post2.likedCount = 55;
-
-        post.CreateTable();
-
-        post.NewlyInsertToDB();
-        post1.NewlyInsertToDB();
-        post2.NewlyInsertToDB();
-
-        //Logcat 보시면 테스트 성공적으로 된걸 보실 수 있습니다.
-        Log.d("DB Test", "Primary Key1 : " + post.mPrimaryKey);
-        Log.d("DB Test", "Primary Key2 : " + post1.mPrimaryKey);
-        Log.d("DB Test", "Primary Key3 : " + post2.mPrimaryKey);
-
-        //cursorWrapper은 조건문에 일치하는 모든 row 들고 있다.
-        CursorWrapper cursorWrapper = DatabaseManager.GetInstance().SelectRows(post.GetTableName(), null, null, null, null, null);
-
-        for (int i = 0; i < cursorWrapper.mCursor.getCount(); i++) {
-            cursorWrapper.mCursor.moveToNext();//이걸 해줘야 다음 레코드로 넘어가게된다.
-            Log.d("DB Test", cursorWrapper.GetStringData("writerID"));
-
-        }
+//        Post post = new Post();
+//        post.writerID = "John";
+//        post.title = "Good1";
+//        post.likedCount = 10;
+//        post.content = "fdfsdfdf";
+//        post.title = "aaa";
+//        post.attachedImg = new ImageLoader().LoadRandomImage(300,300);
+//        post.SharePost(this);
+//
+//        Post post1 = new Post();
+//        post1.writerID = "Max";
+//        post1.title = "Good1";
+//        post1.likedCount = 1;
+//
+//        Post post2 = new Post();
+//        post2.writerID = "Boy";
+//        post2.title = "Good1";
+//        post2.likedCount = 55;
+//
+//        post.CreateTable();
+//
+//        post.NewlyInsertToDB();
+//        post1.NewlyInsertToDB();
+//        post2.NewlyInsertToDB();
+//
+//        //Logcat 보시면 테스트 성공적으로 된걸 보실 수 있습니다.
+//        Log.d("DB Test", "Primary Key1 : " + post.mPrimaryKey);
+//        Log.d("DB Test", "Primary Key2 : " + post1.mPrimaryKey);
+//        Log.d("DB Test", "Primary Key3 : " + post2.mPrimaryKey);
+//
+//        //cursorWrapper은 조건문에 일치하는 모든 row 들고 있다.
+//        CursorWrapper cursorWrapper = DatabaseManager.GetInstance().SelectRows(post.GetTableName(), null, null, null, null, null);
+//
+//        for (int i = 0; i < cursorWrapper.mCursor.getCount(); i++) {
+//            cursorWrapper.mCursor.moveToNext();//이걸 해줘야 다음 레코드로 넘어가게된다.
+//            Log.d("DB Test", cursorWrapper.GetStringData("writerID"));
+//
+//        }
     }
 }

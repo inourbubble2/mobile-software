@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.mobliesoftware9.R;
+import com.example.mobliesoftware9.model.Post;
 
 import org.w3c.dom.Text;
 
@@ -21,32 +22,15 @@ public class SlideAdapter extends PagerAdapter {
     Context context;
     LayoutInflater inflater;
 
-    //list of test images
-    public int[] list_imgs = {
-            R.drawable.slide_test1,
-            R.drawable.slide_test2,
-            R.drawable.slide_test3
-    };
+    Post[] dataSet;
 
-    //list of posts
-    public String[] posts = {
-            "user1 post",
-            "user2 post",
-            "user3 post"
-    };
-
-    public String[] postUsername = {
-            "user1",
-            "user2",
-            "user3"
-    };
-
-    public SlideAdapter(Context context) {
+    public SlideAdapter(Context context, Post[] dataSet) {
         this.context = context;
+        this.dataSet = dataSet;
     }
 
     public int getCount() {
-        return list_imgs.length;
+        return dataSet != null ? dataSet.length : 0;
     }
 
 
@@ -63,9 +47,11 @@ public class SlideAdapter extends PagerAdapter {
         ImageView imgSlide = (ImageView) view.findViewById(R.id.slideImg);
         TextView postSlide = (TextView) view.findViewById(R.id.userPost);
         TextView postUser = (TextView) view.findViewById(R.id.postUsername);
-        imgSlide.setImageResource(list_imgs[position]);
-        postSlide.setText(posts[position]);
-        postUser.setText(postUsername[position]);
+
+        Post post = dataSet[position];
+        imgSlide.setImageBitmap(post.attachedImg.mBitmap);
+        postSlide.setText(post.title);
+        postUser.setText(post.writerID);
         container.addView(view);
         return view;
     }

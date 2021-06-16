@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
                 // else: Reset the value of edittexts and let user know
-                catch (SQLiteException e) {
+                catch (Exception e) {
                     inUsername.setText("");
                     inPassword.setText("");
                     Toast.makeText(getApplicationContext(), "유효하지 않은 계정입니다.", Toast.LENGTH_LONG).show();
