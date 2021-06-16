@@ -1,12 +1,20 @@
 package com.example.mobliesoftware9.model;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+
+import androidx.annotation.Nullable;
 
 import com.example.mobliesoftware9.DB.CursorWrapper;
 import com.example.mobliesoftware9.DB.DatabaseManager;
 import com.example.mobliesoftware9.DB.DateHelper;
 import com.example.mobliesoftware9.Image.LoadedImage;
 
+import java.io.ByteArrayOutputStream;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Vector;
@@ -92,7 +100,7 @@ public class Post  extends DBTable
         return true;
     }
 
-    Vector<Comment> GetCommentsOfThisPost()
+    public Vector<Comment> GetCommentsOfThisPost()
     {
         CursorWrapper commentsCursor = DatabaseManager.GetInstance().SelectRows("Comment", null, new String[]{"postID"}, new String[]{Integer.toString(this.mPrimaryKey)}, null, null);
 
@@ -115,19 +123,52 @@ public class Post  extends DBTable
         }
     }
 
-    void AddComment(Comment newComment)
+    private void AddComment(Comment newComment)
     {
         newComment.SetPostID(this);
         newComment.NewlyInsertToDB();
     }
 
-    void AddComment(String writerID, String commentStr)
+    public void AddComment(String writerID, String commentStr)
     {
         Comment newComment = new Comment();
 
         newComment.writerID = writerID;
         newComment.mContent = commentStr;
         this.AddComment(newComment);
+    }
+
+
+
+    public void SharePost(Context context)
+    {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        this.attachedImg.GetBitmap().compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(),  this.attachedImg.GetBitmap(), this.title, this.content);
+
+        Uri uri = Uri.parse(path);
+
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("image/*");
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+        share.putExtra(Intent.EXTRA_TEXT, this.content);
+        context.startActivity(Intent.createChooser(share, "내 감정 공유하기!"));
+    }
+
+    private boolean localUserLiked = false;
+    public void OnClickLikeButton()
+    {
+        if(localUserLiked == true)
+        {
+            this.likedCount--;
+        }
+        else
+        {
+            this.likedCount++;
+        }
+        localUserLiked = !localUserLiked;
+        this.UpdateToDB();
     }
 
 

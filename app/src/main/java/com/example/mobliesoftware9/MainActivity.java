@@ -102,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
         post.writerID = "John";
         post.title = "Good1";
         post.likedCount = 10;
+        post.content = "fdfsdfdf";
+        post.title = "aaa";
+        post.attachedImg = new ImageLoader().LoadRandomImage(300,300);
+        post.SharePost(this);
 
         Post post1 = new Post();
         post1.writerID = "Max";

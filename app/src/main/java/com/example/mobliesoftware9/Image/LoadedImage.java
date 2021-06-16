@@ -6,7 +6,7 @@ import java.net.URL;
 
 public class LoadedImage
 {
-    public Bitmap mBitmap;
+    public Bitmap mBitmap = null;
     //랜덤 이미지가 아닌 mBitmap의 url
     public String mImageURL;
     public boolean mSuccessLoad;
@@ -17,4 +17,15 @@ public class LoadedImage
         this.mBitmap = loadedImage.mBitmap;
         this.mSuccessLoad = loadedImage.mSuccessLoad;
     }
+
+    public Bitmap GetBitmap()
+    {
+        if(mBitmap == null)
+        {
+            this.LoadBitmapWithThisImageURL();
+        }
+        return this.mBitmap;
+    }
+
+
 }
