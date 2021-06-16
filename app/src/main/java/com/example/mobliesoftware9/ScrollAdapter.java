@@ -61,7 +61,7 @@ public class ScrollAdapter extends RecyclerView.Adapter<ScrollAdapter.VHolder> {
         // 삭제 기능 구현
         holder.deletePost.setOnClickListener(view -> {
             dataSet[position].DeleteFromDBWithPrimaryKey();
-            Toast.makeText(context,"삭제가 완료되었습니다.", Toast.LENGTH_SHORT);
+            Toast.makeText(context,"삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show();
             Log.d("ScrollAdapter",dataSet[position].mPrimaryKey + " 삭제 완료");
             holder.itemView.setVisibility(View.GONE);
 
