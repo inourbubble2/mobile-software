@@ -25,7 +25,6 @@ public class ReadPostActivity  extends AppCompatActivity {
     private ViewPager viewPager;
     private SlideAdapter myAdapter;
     Post[] dataSet;
-    Button btnGotoComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

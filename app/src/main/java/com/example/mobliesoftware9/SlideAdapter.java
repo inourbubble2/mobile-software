@@ -1,6 +1,7 @@
 package com.example.mobliesoftware9;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -73,7 +74,9 @@ public class SlideAdapter extends PagerAdapter {
         });
 
         btnComment.setOnClickListener(v -> {
-
+            Intent intent = new Intent(context, CommentActivity.class);
+            intent.putExtra("mPrimaryKey", post.mPrimaryKey);
+            v.getContext().startActivity(intent);
         });
 
         btnShare.setOnClickListener(v -> {
