@@ -1,7 +1,9 @@
 package com.example.mobliesoftware9;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobliesoftware9.DB.CursorWrapper;
+import com.example.mobliesoftware9.DB.DatabaseManager;
+import com.example.mobliesoftware9.Image.ImageLoader;
+import com.example.mobliesoftware9.Image.LoadedImage;
+import com.example.mobliesoftware9.model.Post;
+import com.example.mobliesoftware9.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BoardActivity extends AppCompatActivity {
@@ -16,6 +24,7 @@ public class BoardActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     ScrollAdapter adapter;
+    Post[] dataSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +32,34 @@ public class BoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_board);
 
         // 내가 쓴 글 목록 조회
+        try {
+            User currentUser = User.getInstance();
+            CursorWrapper postCursor = DatabaseManager.GetInstance().SelectRows("Post", null, new String[]{"writerID"}, new String[]{currentUser.username}, null, null);
+            postCursor.mCursor.moveToNext();
+
+            dataSet = new Post[postCursor.mCursor.getCount()];
+            for (int i = 0; i < postCursor.mCursor.getCount(); i++) {
+                Post post = new Post();
+                post.writerID = postCursor.GetStringData("writerID");
+                post.title = postCursor.GetStringData("title");
+                post.createdAt = postCursor.GetDateData("createdAt");
+
+                ImageLoader imageLoader = new ImageLoader();
+                LoadedImage img = imageLoader.LoadImageFromURL(postCursor.GetStringData("attachedImageURL"));
+                post.attachedImg = img;
+
+                dataSet[i] = post;
+
+                postCursor.mCursor.moveToNext();
+            }
+        } catch (SQLiteException e) {
+            Log.e("BoardActivity", "Failed to load posts");
+        }
 
         //user post recycler
         recyclerView = (RecyclerView) findViewById(R.id.postRecycler);
         layoutManager = new LinearLayoutManager(this);
-        adapter = new ScrollAdapter(this);
+        adapter = new ScrollAdapter(this, dataSet);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
