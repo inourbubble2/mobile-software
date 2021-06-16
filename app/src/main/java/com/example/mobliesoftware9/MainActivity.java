@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     void TestDB() {
         //Test Code
         //어플 킬 때 마다 기존 DB 초기화함
-        this.getApplicationContext().deleteDatabase(DatabaseManager.DB_NAME);
+//        this.getApplicationContext().deleteDatabase(DatabaseManager.DB_NAME);
 
         DatabaseManager.GetInstance().OpenDatabase(this.getApplicationContext());
 
