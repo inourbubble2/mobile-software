@@ -2,6 +2,7 @@ package com.example.mobliesoftware9;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,33 +14,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobliesoftware9.model.Post;
+
 import java.util.List;
 
 public class ScrollAdapter extends RecyclerView.Adapter<ScrollAdapter.VHolder> {
 
     Context context;
+    Post[] dataSet;
 
-    public int[] list_imgs = {
-            R.drawable.slide_test1,
-            R.drawable.slide_test2,
-            R.drawable.slide_test3
-    };
-
-    //list of posts
-    public String[] posts = {
-            "post1",
-            "post2",
-            "post3"
-    };
-
-    public String[] date = {
-            "2021/6/13",
-            "2021/6/12",
-            "2021/6/11"
-    };
-
-    public ScrollAdapter(Context context) {
+    public ScrollAdapter(Context context, Post[] dataSet) {
         this.context = context;
+        this.dataSet = dataSet;
     }
 
     public VHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,15 +36,15 @@ public class ScrollAdapter extends RecyclerView.Adapter<ScrollAdapter.VHolder> {
 
     @Override
     public void onBindViewHolder(VHolder holder, int position) {
-        holder.postDate.setText(date[position]);
-        holder.postImage.setImageResource(list_imgs[position]);
-        holder.userPost.setText(posts[position]);
+        holder.postDate.setText(dataSet[position].createdAt.toString().substring(0,10));
+        holder.postImage.setImageBitmap(dataSet[position].attachedImg.mBitmap);
+        holder.userPost.setText(dataSet[position].title);
     }
 
 
     @Override
     public int getItemCount() {
-        return posts.length;
+        return dataSet != null ? dataSet.length : 0;
     }
 
     public class VHolder extends RecyclerView.ViewHolder {

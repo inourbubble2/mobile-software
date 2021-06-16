@@ -33,9 +33,9 @@
             android:id="@+id/userPost"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:text="User post......."
-            android:fontFamily="cursive"
-            android:textSize="20sp"
+            android:text="User post here.."
+            android:fontFamily="@font/nanum"
+            android:textSize="25sp"
             android:textColor="@color/white"/>
 
         <LinearLayout
