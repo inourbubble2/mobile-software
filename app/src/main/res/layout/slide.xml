@@ -84,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nanum"
                 android:textSize="20sp"
+                android:text="0"
                 android:layout_marginStart="133dp"
                 />
 
