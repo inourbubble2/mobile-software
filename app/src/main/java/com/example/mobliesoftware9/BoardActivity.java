@@ -34,9 +34,6 @@ public class BoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
 
-        //goto comment
-
-
         // 내가 쓴 글 목록 조회
         try {
             User currentUser = User.getInstance();

@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CommentScrollAdapter extends RecyclerView.Adapter<CommentScrollAdapter.VHolder> {
 
     Context context;
-    public String[] commentUser = {
+
+    public String[] users = {
             "user1",
             "user2",
             "user3"
@@ -24,7 +25,11 @@ public class CommentScrollAdapter extends RecyclerView.Adapter<CommentScrollAdap
             "user3 comment"
     };
 
-    public int userProfImg = R.drawable.ic_baseline_account_circle_32;
+    public int[] userProfImg = {
+            R.drawable.ic_baseline_account_circle_32,
+            R.drawable.ic_baseline_account_circle_32,
+            R.drawable.ic_baseline_account_circle_32
+    };
 
 
     public CommentScrollAdapter(Context context) {
@@ -33,21 +38,21 @@ public class CommentScrollAdapter extends RecyclerView.Adapter<CommentScrollAdap
 
     public VHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.scroll_post_item, parent, false);
+        View view = inflater.inflate(R.layout.scroll_comment_item, parent, false);
         return new VHolder(view);
     }
 
     @Override
     public void onBindViewHolder(VHolder holder, int position) {
-        holder.userProfImage.setImageResource(userProfImg);
-        holder.usernameComment.setText(commentUser[position]);
+        holder.userProfImage.setImageResource(userProfImg[position]);
+        holder.usernameComment.setText(users[position]);
         holder.userComment.setText(comment[position]);
     }
 
 
     @Override
     public int getItemCount() {
-        return comment.length;
+        return users.length;
     }
 
     public class VHolder extends RecyclerView.ViewHolder {
