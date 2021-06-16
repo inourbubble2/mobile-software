@@ -7,8 +7,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import androidx.annotation.Nullable;
-
 import com.example.mobliesoftware9.DB.CursorWrapper;
 import com.example.mobliesoftware9.DB.DatabaseManager;
 import com.example.mobliesoftware9.DB.DateHelper;
@@ -16,7 +14,6 @@ import com.example.mobliesoftware9.Image.LoadedImage;
 
 import java.io.ByteArrayOutputStream;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Vector;
 
 public class Post  extends DBTable
@@ -76,7 +73,7 @@ public class Post  extends DBTable
     }
 
     @Override
-    public void LoadFromDB(CursorWrapper cursor) {
+    public void LoadFromCursor(CursorWrapper cursor) {
         this.mPrimaryKey = cursor.GetIntegerData(DBTable.mPrimaryKeyColumnName);
         this.title = cursor.GetStringData("title");
         this.content = cursor.GetStringData("content");
@@ -116,7 +113,7 @@ public class Post  extends DBTable
             {
                 commentsCursor.MoveToNext();
                 Comment comment = new Comment();
-                comment.LoadFromDB(commentsCursor);
+                comment.LoadFromCursor(commentsCursor);
                 comments.add(comment);
             }
             commentsCursor.Close();

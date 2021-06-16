@@ -7,7 +7,6 @@ import com.example.mobliesoftware9.DB.DatabaseManager;
 import com.example.mobliesoftware9.DB.DateHelper;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Vector;
 
 public class User extends DBTable {
@@ -56,7 +55,7 @@ public class User extends DBTable {
     }
 
     @Override
-    public void LoadFromDB(CursorWrapper cursor) {
+    public void LoadFromCursor(CursorWrapper cursor) {
         this.mPrimaryKey = cursor.GetIntegerData(DBTable.mPrimaryKeyColumnName);
         this.username = cursor.GetStringData("username");
         this.password = cursor.GetStringData("password");
@@ -79,7 +78,7 @@ public class User extends DBTable {
             {
                 postsCursor.MoveToNext();
                 Post post = new Post();
-                post.LoadFromDB(postsCursor);
+                post.LoadFromCursor(postsCursor);
                 posts.add(post);
             }
             postsCursor.Close();

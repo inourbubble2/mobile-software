@@ -43,11 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     User user = new User();
                     userCursor.mCursor.moveToNext();
-                    user.username = userCursor.GetStringData("username");
-                    user.password = userCursor.GetStringData("password");
-                    user.email = userCursor.GetStringData("email");
-                    user.createdAt = userCursor.GetDateData("createdAt");
-
+                    user.LoadFromCursor(userCursor);
                     User.setInstance(user);
 
                     Toast.makeText(getApplicationContext(), "로그인 되었습니다.", Toast.LENGTH_SHORT).show();
