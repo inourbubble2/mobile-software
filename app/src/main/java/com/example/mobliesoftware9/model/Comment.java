@@ -67,7 +67,7 @@ public class Comment extends DBTable
     }
 
     @Override
-    public void LoadFromDB(CursorWrapper cursor) {
+    public void LoadFromCursor(CursorWrapper cursor) {
         this.mPrimaryKey = cursor.GetIntegerData(DBTable.mPrimaryKeyColumnName);
         this.postID = cursor.GetIntegerData("postID");
         this.writerID = cursor.GetStringData("writerID");

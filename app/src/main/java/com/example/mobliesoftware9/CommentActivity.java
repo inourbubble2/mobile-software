@@ -58,13 +58,7 @@ public class CommentActivity extends AppCompatActivity {
             dataSet = new Comment[cnt];
             for (int i = 0; i < cnt; i++) {
                 Comment comment = new Comment();
-                comment.mPrimaryKey = commentCursor.GetIntegerData("mPrimaryKey");
-                comment.postID = commentCursor.GetIntegerData("postID");
-                comment.writerID = commentCursor.GetStringData("writerID");
-                comment.mContent = commentCursor.GetStringData("mContent");
-                comment.createdAt = commentCursor.GetDateData("createdAt");
-                comment.likedCount = commentCursor.GetIntegerData("likedCount");
-
+                comment.LoadFromCursor(commentCursor);
                 dataSet[i] = comment;
 
                 commentCursor.mCursor.moveToNext();
