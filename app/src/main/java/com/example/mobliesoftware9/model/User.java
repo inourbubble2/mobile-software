@@ -46,6 +46,7 @@ public class User extends DBTable {
     public ContentValues GetCurrentContentValue() {
         ContentValues contentValues = new ContentValues();
 
+        contentValues.put(DBTable.mPrimaryKeyColumnName, this.mPrimaryKey);
         contentValues.put("username", this.username);
         contentValues.put("password", this.password);
         contentValues.put("email", this.email);
