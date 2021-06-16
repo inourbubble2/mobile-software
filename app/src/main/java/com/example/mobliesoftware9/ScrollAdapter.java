@@ -58,6 +58,13 @@ public class ScrollAdapter extends RecyclerView.Adapter<ScrollAdapter.VHolder> {
             dataSet[position].DeleteFromDBWithPrimaryKey();
             Toast.makeText(context,"삭제가 완료되었습니다.", Toast.LENGTH_SHORT);
             Log.d("ScrollAdapter",dataSet[position].mPrimaryKey + " 삭제 완료");
+            holder.itemView.setVisibility(View.GONE);
+
+            ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
+            params.height = 0;
+            params.width = 0;
+            holder.itemView.setLayoutParams(params);
+
         });
     }
 
