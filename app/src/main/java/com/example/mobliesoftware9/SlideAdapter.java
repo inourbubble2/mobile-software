@@ -37,7 +37,6 @@ public class SlideAdapter extends PagerAdapter {
         return dataSet != null ? dataSet.length : 0;
     }
 
-
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return (view == (RelativeLayout)object);

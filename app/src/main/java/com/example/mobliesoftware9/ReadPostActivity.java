@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,12 +25,14 @@ public class ReadPostActivity  extends AppCompatActivity {
     private ViewPager viewPager;
     private SlideAdapter myAdapter;
     Post[] dataSet;
-
+    Button btnGotoComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read);
+
+
 
         // 전체 글 중 최대 최근 10개만 조회
         try {

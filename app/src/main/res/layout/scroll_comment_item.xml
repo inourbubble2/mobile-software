@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:background="@drawable/gradient"
+    android:elevation="6dp"
+    android:layout_marginBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:paddingStart="10dp"
+                android:id="@+id/imgCommentUser"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_baseline_account_circle_32"/>
+
+            <TextView
+                android:id="@+id/usernameComment"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:paddingStart="10dp"
+                android:text="username"
+                android:fontFamily="@font/nanum"
+                android:textSize="25sp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/userComment"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="User comment her..."
+            android:fontFamily="@font/nanum"
+            android:textSize="25sp"
+            android:textColor="@color/white"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/commentLike"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/ic_baseline_thumb_up_alt_24"
+                android:backgroundTint="@color/white"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
