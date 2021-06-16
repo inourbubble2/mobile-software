@@ -1,13 +1,17 @@
 package com.example.mobliesoftware9;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -52,6 +56,30 @@ public class SlideAdapter extends PagerAdapter {
         postSlide.setText(post.title);
         postUser.setText(post.writerID);
         container.addView(view);
+
+        Button btnLike = (Button) view.findViewById(R.id.btnLike);
+        Button btnComment = (Button) view.findViewById(R.id.btnComment);
+        Button btnShare = (Button) view.findViewById(R.id.btnComment);
+
+        btnLike.setOnClickListener(v -> {
+            if (post.OnClickLikeButton()) {
+                btnLike.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
+                Toast.makeText(context, "좋아요 버튼을 눌렀습니다.", Toast.LENGTH_SHORT);
+            } else {
+                btnLike.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+                Toast.makeText(context, "좋아요를 해제했습니다.", Toast.LENGTH_SHORT);
+            }
+
+        });
+
+        btnComment.setOnClickListener(v -> {
+
+        });
+
+        btnShare.setOnClickListener(v -> {
+            post.SharePost(context);
+        });
+
         return view;
     }
 

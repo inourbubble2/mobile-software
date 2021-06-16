@@ -158,7 +158,7 @@ public class Post  extends DBTable
     }
 
     private boolean localUserLiked = false;
-    public void OnClickLikeButton()
+    public boolean OnClickLikeButton()
     {
         if(localUserLiked == true)
         {
@@ -170,6 +170,8 @@ public class Post  extends DBTable
         }
         localUserLiked = !localUserLiked;
         this.UpdateToDB();
+
+        return localUserLiked;
     }
 
 
