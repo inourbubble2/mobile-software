@@ -76,6 +76,7 @@ public class CreatePostActivity extends AppCompatActivity {
                     post.writerID = currentUser.username;
                     post.title = title;
                     post.content = content;
+                    post.attachedImg = img;
 
                     post.CreateTable();
                     post.NewlyInsertToDB();
