@@ -2,19 +2,25 @@ package com.example.mobliesoftware9;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobliesoftware9.model.Post;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -36,9 +42,23 @@ public class ScrollAdapter extends RecyclerView.Adapter<ScrollAdapter.VHolder> {
 
     @Override
     public void onBindViewHolder(VHolder holder, int position) {
-        holder.postDate.setText(dataSet[position].createdAt.toString().substring(0,10));
-        holder.postImage.setImageBitmap(dataSet[position].attachedImg.mBitmap);
-        holder.userPost.setText(dataSet[position].title);
+        Post post = dataSet[position];
+        holder.postDate.setText(post.createdAt.toString().substring(0,10));
+        holder.postImage.setImageBitmap(post.attachedImg.mBitmap);
+        holder.userPost.setText(post.title);
+
+        holder.editPost.setOnClickListener(view -> {
+//            Intent intent = new Intent(context, CreatePostActivity.class);
+//            intent.putExtra("imgUrl", post.attachedImg.mImageURL);
+//            context.startActivity();
+        });
+
+        // 삭제 기능 구현
+        holder.deletePost.setOnClickListener(view -> {
+            dataSet[position].DeleteFromDBWithPrimaryKey();
+            Toast.makeText(context,"삭제가 완료되었습니다.", Toast.LENGTH_SHORT);
+            Log.d("ScrollAdapter",dataSet[position].mPrimaryKey + " 삭제 완료");
+        });
     }
 
 
@@ -51,11 +71,15 @@ public class ScrollAdapter extends RecyclerView.Adapter<ScrollAdapter.VHolder> {
         ImageView postImage;
         TextView postDate;
         TextView userPost;
+        Button editPost;
+        Button deletePost;
         public VHolder(View itemView) {
             super(itemView);
             postImage = (ImageView) itemView.findViewById(R.id.slidePostImg);
             postDate = (TextView) itemView.findViewById(R.id.postDate);
             userPost = (TextView) itemView.findViewById(R.id.userPost);
+            editPost = (Button) itemView.findViewById(R.id.editPost);
+            deletePost = (Button) itemView.findViewById(R.id.deletePost);
         };
 
     }
