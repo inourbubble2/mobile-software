@@ -78,6 +78,23 @@
                 android:layout_marginStart="10dp"
                 android:background="@drawable/ic_baseline_share_32"/>
 
+            <EditText
+                android:id="@+id/noOfLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nanum"
+                android:textSize="20sp"
+                android:text="0"
+                android:layout_marginStart="133dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="명이 좋아한다"
+                android:fontFamily="@font/nanum"
+                android:textSize="20sp"/>
+
         </LinearLayout>
 
     </LinearLayout>
