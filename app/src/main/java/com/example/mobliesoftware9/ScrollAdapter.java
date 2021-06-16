@@ -24,6 +24,8 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 public class ScrollAdapter extends RecyclerView.Adapter<ScrollAdapter.VHolder> {
 
     Context context;
@@ -48,9 +50,12 @@ public class ScrollAdapter extends RecyclerView.Adapter<ScrollAdapter.VHolder> {
         holder.userPost.setText(post.title);
 
         holder.editPost.setOnClickListener(view -> {
-//            Intent intent = new Intent(context, CreatePostActivity.class);
-//            intent.putExtra("imgUrl", post.attachedImg.mImageURL);
-//            context.startActivity();
+            Intent intent = new Intent(context, CreatePostActivity.class);
+            intent.putExtra("mPrimaryKey", post.mPrimaryKey);
+            intent.putExtra("imgUrl", post.attachedImg.mImageURL);
+            intent.putExtra("title", post.title);
+            intent.putExtra("content", post.content);
+            view.getContext().startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
         });
 
         // 삭제 기능 구현

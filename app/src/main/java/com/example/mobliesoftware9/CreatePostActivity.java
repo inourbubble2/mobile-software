@@ -28,10 +28,17 @@ public class CreatePostActivity extends AppCompatActivity {
     ImageView loadedImagePost;
     LoadedImage img;
 
+    boolean updating = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_post_popup);
+
+        btnSetPost = (Button) findViewById(R.id.btnSetPost);
+        btnCancelPost = (Button) findViewById(R.id.btnCancelPost);
+        txtUserPostTitle = (EditText) findViewById(R.id.txtUserPostTitle);
+        txtUserPostContent = (EditText) findViewById(R.id.txtUserPostContent);
 
         // Home에 있던 이미지 불러오기
         // Intent에 extra로 저장된 이미지 URL을 가져와서 로드함
@@ -42,6 +49,15 @@ public class CreatePostActivity extends AppCompatActivity {
         img  = imageLoader.LoadImageFromURL(imgUrl);
         loadedImagePost.setImageBitmap(img.mBitmap);
 
+        // 만약 새 글 쓰기가 아니라 수정하기로 온 것이라면
+        int mPrimaryKey = intent.getIntExtra("mPrimaryKey", 0);
+        String title = intent.getStringExtra("title");
+        String content = intent.getStringExtra("content");
+        if (title != null) {
+            updating = true;
+            txtUserPostTitle.setText(title);
+            txtUserPostContent.setText(content);
+        }
 
         // 글 작성
         DisplayMetrics dm = new DisplayMetrics();
@@ -52,11 +68,6 @@ public class CreatePostActivity extends AppCompatActivity {
 
         //getWindow().setLayout((int)(width*0.8), (int)(height*0.6));
         getWindow().setLayout((int)(width), (int)(height));
-
-        btnSetPost = (Button) findViewById(R.id.btnSetPost);
-        btnCancelPost = (Button) findViewById(R.id.btnCancelPost);
-        txtUserPostTitle = (EditText) findViewById(R.id.txtUserPostTitle);
-        txtUserPostContent = (EditText) findViewById(R.id.txtUserPostContent);
 
         btnSetPost.setOnClickListener(new View.OnClickListener(){
 
@@ -78,11 +89,17 @@ public class CreatePostActivity extends AppCompatActivity {
                     post.content = content;
                     post.attachedImg = img;
 
-                    post.CreateTable();
-                    post.NewlyInsertToDB();
 
-                    Toast.makeText(getApplicationContext(), "작성이 완료되었습니다.", Toast.LENGTH_LONG).show();
+                    if (updating) { // 수정
+                        post.mPrimaryKey = mPrimaryKey;
+                        post.UpdateToDB();
+                    } else { // 새로 작성
+                        post.CreateTable();
+                        post.NewlyInsertToDB();
+                    }
+
                     Log.d("DB Test", post.mPrimaryKey + " : " + post.title + " by " + post.writerID);
+                    Toast.makeText(getApplicationContext(), "작성이 완료되었습니다.", Toast.LENGTH_LONG).show();
                     finish();
                 } catch (Exception e){
                     e.printStackTrace();
