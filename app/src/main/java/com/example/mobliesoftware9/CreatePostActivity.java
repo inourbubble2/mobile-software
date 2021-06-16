@@ -1,9 +1,9 @@
 package com.example.mobliesoftware9;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.PointerIcon;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mobliesoftware9.Image.ImageLoader;
+import com.example.mobliesoftware9.Image.LoadedImage;
 import com.example.mobliesoftware9.model.Post;
 import com.example.mobliesoftware9.model.User;
 
@@ -23,10 +25,23 @@ public class CreatePostActivity extends AppCompatActivity {
     EditText txtUserPostTitle;
     EditText txtUserPostContent;
 
+    ImageView loadedImagePost;
+    LoadedImage img;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_post_popup);
+
+        // Home에 있던 이미지 불러오기
+        // Intent에 extra로 저장된 이미지 URL을 가져와서 로드함
+        loadedImagePost = (ImageView) findViewById(R.id.loadedImagePost);
+        Intent intent = getIntent();
+        String imgUrl = intent.getStringExtra("imgUrl");
+        ImageLoader imageLoader = new ImageLoader();
+        img  = imageLoader.LoadImageFromURL(imgUrl);
+        loadedImagePost.setImageBitmap(img.mBitmap);
+
 
         // 글 작성
         DisplayMetrics dm = new DisplayMetrics();

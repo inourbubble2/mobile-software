@@ -1,13 +1,7 @@
 package com.example.mobliesoftware9;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,12 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mobliesoftware9.Image.ImageLoader;
 import com.example.mobliesoftware9.Image.LoadedImage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 
 public class HomeActivity extends AppCompatActivity {
     private Button btnGoToWritePost;
@@ -40,13 +28,16 @@ public class HomeActivity extends AppCompatActivity {
         loadedImage = (ImageView) findViewById(R.id.loadedImage);
 
         // 오늘의 사진 불러오기
-        ImageLoader imgLoader  = new ImageLoader();
-        LoadedImage img = imgLoader.LoadRandomImage(300,300);
+        // 현재
+        ImageLoader imageLoader  = new ImageLoader();
+        LoadedImage img = imageLoader.LoadRandomImage(500, 500);
         loadedImage.setImageBitmap(img.mBitmap);
 
         btnGoToWritePost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, CreatePostActivity.class));
+                Intent intent = new Intent(HomeActivity.this, CreatePostActivity.class);
+                intent.putExtra("imgUrl", img.mImageURL);
+                startActivity(intent);
             }
         });
 
