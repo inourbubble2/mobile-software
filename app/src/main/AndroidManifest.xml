@@ -11,9 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoblieSoftware9">
-
-
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,16 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".BoardActivity"></activity>
-        <activity android:name=".CreatePostActivity"></activity>
-        <activity android:name=".ReadPostActivity"></activity>
-        <activity android:name=".SettingActivity"></activity>
-
-
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".BoardActivity" />
+        <activity android:name=".CreatePostActivity" />
+        <activity android:name=".ReadPostActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".CommentActivity" />
     </application>
 
 </manifest>

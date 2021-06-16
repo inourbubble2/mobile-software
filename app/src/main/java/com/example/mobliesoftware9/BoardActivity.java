@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,10 +28,14 @@ public class BoardActivity extends AppCompatActivity {
     ScrollAdapter adapter;
     Post[] dataSet;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
+
+        //goto comment
+
 
         // 내가 쓴 글 목록 조회
         try {
