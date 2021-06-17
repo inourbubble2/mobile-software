@@ -42,14 +42,32 @@
             android:layout_marginTop="15dp"/>
 
         <TextView
-            android:id="@+id/userPost"
+            android:id="@+id/userPostTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="user's post here"
+            android:text="title"
             android:textSize="25sp"
-            android:fontFamily="cursive"
+            android:fontFamily="@font/nanum"
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:scrollbars="vertical"
+            android:fillViewport="true">
+
+            <TextView
+                android:id="@+id/userPost"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:text="user's post here"
+                android:textSize="25sp"
+                android:fontFamily="@font/nanum"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"/>
+
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="wrap_content"

@@ -43,14 +43,8 @@ public class BoardActivity extends AppCompatActivity {
             dataSet = new Post[postCursor.mCursor.getCount()];
             for (int i = 0; i < postCursor.mCursor.getCount(); i++) {
                 Post post = new Post();
-                post.mPrimaryKey = postCursor.GetIntegerData("mPrimaryKey");
-                post.writerID = postCursor.GetStringData("writerID");
-                post.title = postCursor.GetStringData("title");
-                post.createdAt = postCursor.GetDateData("createdAt");
-
-                ImageLoader imageLoader = new ImageLoader();
-                LoadedImage img = imageLoader.LoadImageFromURL(postCursor.GetStringData("attachedImageURL"));
-                post.attachedImg = img;
+                post.LoadFromCursor(postCursor);
+                post.attachedImg.LoadBitmapWithThisImageURL();
 
                 dataSet[i] = post;
 
