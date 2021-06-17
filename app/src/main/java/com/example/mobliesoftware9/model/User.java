@@ -1,10 +1,15 @@
 package com.example.mobliesoftware9.model;
 
+import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
+
+import androidx.annotation.Nullable;
 
 import com.example.mobliesoftware9.DB.CursorWrapper;
 import com.example.mobliesoftware9.DB.DatabaseManager;
 import com.example.mobliesoftware9.DB.DateHelper;
+import com.example.mobliesoftware9.Image.LoadedImage;
 
 import java.time.LocalDateTime;
 import java.util.Vector;
@@ -15,6 +20,7 @@ public class User extends DBTable {
     public String password;
     public String email;
     public LocalDateTime createdAt = DateHelper.GetCurrentDate();
+    public LoadedImage mProfileImage = null;
 
     private static User instance = null;
 
@@ -37,6 +43,7 @@ public class User extends DBTable {
         column.add(new DatabaseManager.ColumnContainer("password", "text"));
         column.add(new DatabaseManager.ColumnContainer("email", "text"));
         column.add(new DatabaseManager.ColumnContainer("createdAt", "text"));
+        column.add(new DatabaseManager.ColumnContainer("mProfileImage", "BLOB"));
 
         return column;
     }
@@ -50,6 +57,8 @@ public class User extends DBTable {
         contentValues.put("password", this.password);
         contentValues.put("email", this.email);
         contentValues.put("createdAt", DateHelper.DateToString(this.createdAt));
+        contentValues.put("mProfileImage", this.mProfileImage != null ?
+                this.mProfileImage.GetBitmapAsByteArray() : null);
 
         return contentValues;
     }
@@ -61,9 +70,15 @@ public class User extends DBTable {
         this.password = cursor.GetStringData("password");
         this.email = cursor.GetStringData("email");
         this.createdAt = cursor.GetDateData("createdAt");
+
+        if(this.mProfileImage == null)
+        {
+            this.mProfileImage = new LoadedImage();
+        }
+        this.mProfileImage.SetImageFromByteArray(cursor.GetByteArrayData("mProfileImage"));
     }
 
-    Vector<Post> GetPostsWrittenByThisUser()
+    public Vector<Post> GetPostsWrittenByThisUser()
     {
         CursorWrapper postsCursor = DatabaseManager.GetInstance().SelectRows("Post", null, new String[]{"writerID"}, new String[]{this.username}, null, null);
 
@@ -99,5 +114,12 @@ public class User extends DBTable {
 
         return true;
     }
+
+    public void EditUserImage(byte[] img)
+    {
+        this.mProfileImage.SetImageFromByteArray(img);
+    }
+
+
 
 }

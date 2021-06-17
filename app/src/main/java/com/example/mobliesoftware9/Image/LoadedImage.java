@@ -1,7 +1,9 @@
 package com.example.mobliesoftware9.Image;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.net.URL;
 
 public class LoadedImage
@@ -26,6 +28,24 @@ public class LoadedImage
         }
         return this.mBitmap;
     }
+
+    public byte[] GetBitmapAsByteArray() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        this.mBitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+        return outputStream.toByteArray();
+    }
+
+    public void SetImageFromByteArray(byte[] img)
+    {
+        if(img != null)
+        {
+            mBitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+        }
+
+    }
+
+
+
 
 
 }

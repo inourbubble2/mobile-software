@@ -34,6 +34,10 @@ public class CursorWrapper
         this.mCursor.close();
     }
 
+    public byte[] GetByteArrayData(String columnName)
+    {
+        return this.mCursor.getBlob(this.mCursor.getColumnIndex(columnName));
+    }
 
     public LocalDateTime GetDateData(String columnName)
     {

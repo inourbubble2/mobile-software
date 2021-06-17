@@ -1,6 +1,8 @@
 package com.example.mobliesoftware9;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mobliesoftware9.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 
 //
 public class SettingActivity extends AppCompatActivity {
@@ -21,6 +29,48 @@ public class SettingActivity extends AppCompatActivity {
     EditText password;
     Button btnSaveProfile;
     User currentUser;
+
+    private static final int PICK_IMAGE = 50;
+    private void pickImage()
+    {
+        Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        getIntent.setType("image/*");
+
+        Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        pickIntent.setType("image/*");
+
+        Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
+
+        startActivityForResult(chooserIntent, PICK_IMAGE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                //Display an error
+                return;
+            }
+            Uri uri = data.getData();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            FileInputStream fis;
+            try {
+                fis = new FileInputStream(new File(uri.getPath()));
+                byte[] buf = new byte[1024];
+                int n;
+                while (-1 != (n = fis.read(buf)))
+                    baos.write(buf, 0, n);
+
+                this.currentUser.EditUserImage(buf);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //Now you can do whatever you want with your inpustream, save it as file, upload to a server, decode a bitmap...
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +124,8 @@ public class SettingActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        pickImage();
     }
 
 }
