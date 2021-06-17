@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mobliesoftware9.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -28,6 +29,9 @@ public class SettingActivity extends AppCompatActivity {
     EditText password;
     Button btnSaveProfile;
     User currentUser;
+
+    ShapeableImageView imgUserProfile;
+    Button btnUserPicEdit;
 
     private static final int PICK_IMAGE = 50;
     private void EditCurrentUserProfileImage()
@@ -66,19 +70,34 @@ public class SettingActivity extends AppCompatActivity {
 
         // 세팅과 관련된 액티비티
         // 알림 설정, 닉네임 변경 등 진행
+        imgUserProfile = (ShapeableImageView) findViewById(R.id.imgUserProfile);
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         btnSaveProfile = (Button) findViewById(R.id.btnSaveProfile);
+        btnUserPicEdit = (Button) findViewById(R.id.btnUserPicEdit);
         currentUser = User.getInstance();
 
         username.setText(currentUser.username);
+
+        // 프로필 사진 보여주기
+
+        if (currentUser.mProfileImage != null)
+            imgUserProfile.setImageBitmap(currentUser.mProfileImage.mBitmap);
 
 
         btnSaveProfile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 String usernameStr = username.getText().toString();
-                currentUser.username = usernameStr;
+                currentUser.UpdateToDB();
+            }
+        });
+
+        btnUserPicEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditCurrentUserProfileImage();
+                imgUserProfile.setImageBitmap(currentUser.mProfileImage.mBitmap);
             }
         });
 

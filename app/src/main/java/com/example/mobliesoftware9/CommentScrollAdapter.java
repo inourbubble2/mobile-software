@@ -13,8 +13,11 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobliesoftware9.DB.CursorWrapper;
+import com.example.mobliesoftware9.DB.DatabaseManager;
 import com.example.mobliesoftware9.model.Comment;
 import com.example.mobliesoftware9.model.Post;
+import com.example.mobliesoftware9.model.User;
 
 import java.util.ArrayList;
 
@@ -40,7 +43,20 @@ public class CommentScrollAdapter extends RecyclerView.Adapter<CommentScrollAdap
     @Override
     public void onBindViewHolder(VHolder holder, int position) {
         Comment comment = dataSet.get(position);
-        holder.userProfImage.setImageBitmap(post.attachedImg.mBitmap);
+        CursorWrapper userCursor = DatabaseManager.GetInstance().SelectRows("User",
+                null,
+                new String[]{"username"},
+                new String[]{comment.writerID},
+                null,
+                null);
+        userCursor.mCursor.moveToNext();
+        User commentUser = new User();
+        commentUser.LoadFromCursor(userCursor);
+
+        if (commentUser.mProfileImage.mBitmap != null) {
+            holder.userProfImage.setImageBitmap(commentUser.mProfileImage.mBitmap);
+        }
+
         holder.usernameComment.setText(comment.writerID);
         holder.userComment.setText(comment.mContent);
 
