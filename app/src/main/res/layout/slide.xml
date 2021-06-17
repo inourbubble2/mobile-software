@@ -28,8 +28,9 @@
                 android:id="@+id/postUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="cursive"
-                android:textSize="25sp"
+                android:text="username"
+                android:fontFamily="@font/nanum"
+                android:textSize="30sp"
                 android:layout_marginStart="10dp"/>
 
         </LinearLayout>
