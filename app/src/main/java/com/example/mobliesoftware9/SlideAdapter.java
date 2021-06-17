@@ -45,12 +45,15 @@ public class SlideAdapter extends PagerAdapter {
         RelativeLayout layoutSlide = (RelativeLayout) view.findViewById(R.id.relativeLayoutSlide);
         ImageView imgSlide = (ImageView) view.findViewById(R.id.slideImg);
         TextView postSlide = (TextView) view.findViewById(R.id.userPostTitle);
+        TextView postContent = (TextView) view.findViewById(R.id.userPost);
         TextView postUser = (TextView) view.findViewById(R.id.postUsername);
         TextView likedCount = (TextView) view.findViewById(R.id.noOfLike);
+
 
         Post post = dataSet[position];
         imgSlide.setImageBitmap(post.attachedImg.mBitmap);
         postSlide.setText(post.title);
+        postContent.setText(post.content);
         postUser.setText(post.writerID);
         likedCount.setText(Integer.toString(post.likedCount));
 
