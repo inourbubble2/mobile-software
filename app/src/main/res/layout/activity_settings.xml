@@ -61,20 +61,11 @@
                 android:id="@+id/username"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="40dp"
                 android:textAlignment="center"
-                android:editable="false"
                 android:fontFamily="@font/nanum"
                 android:textSize="35sp"
                 android:text="유저네임"/>
-
-            <Button
-                android:id="@+id/btnEditUsername"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/ic_baseline_edit_24"
-                />
 
         </LinearLayout>
 
@@ -97,20 +88,11 @@
                 android:id="@+id/password"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="40dp"
                 android:textAlignment="center"
-                android:editable="false"
                 android:fontFamily="@font/nanum"
                 android:textSize="35sp"
                 android:text="비밀번호"/>
-
-            <Button
-                android:id="@+id/btnEditPassword"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/ic_baseline_edit_24"
-                />
 
         </LinearLayout>
 
