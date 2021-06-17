@@ -44,10 +44,7 @@ public class BoardActivity extends AppCompatActivity {
             for (int i = 0; i < postCursor.mCursor.getCount(); i++) {
                 Post post = new Post();
                 post.LoadFromCursor(postCursor);
-
-                ImageLoader imageLoader = new ImageLoader();
-                LoadedImage img = imageLoader.LoadImageFromURL(post.attachedImg.mImageURL);
-                post.attachedImg = img;
+                post.attachedImg.LoadBitmapWithThisImageURL();
 
                 dataSet[i] = post;
 
