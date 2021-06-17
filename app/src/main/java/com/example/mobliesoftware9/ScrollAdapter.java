@@ -1,28 +1,19 @@
 package com.example.mobliesoftware9;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobliesoftware9.model.Post;
-
-import org.w3c.dom.Text;
-
-import java.util.List;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
@@ -89,7 +80,7 @@ public class ScrollAdapter extends RecyclerView.Adapter<ScrollAdapter.VHolder> {
             super(itemView);
             postImage = (ImageView) itemView.findViewById(R.id.slidePostImg);
             postDate = (TextView) itemView.findViewById(R.id.postDate);
-            userPost = (TextView) itemView.findViewById(R.id.userPost);
+            userPost = (TextView) itemView.findViewById(R.id.userPostTitle);
             editPost = (Button) itemView.findViewById(R.id.editPost);
             deletePost = (Button) itemView.findViewById(R.id.deletePost);
         };

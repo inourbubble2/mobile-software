@@ -30,7 +30,7 @@
             android:textColor="@color/white"/>
 
         <TextView
-            android:id="@+id/userPost"
+            android:id="@+id/userPostTitle"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:text="User post here.."
