@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.mobliesoftware9.model.Post;
@@ -35,14 +36,14 @@ public class SlideAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return (view == (RelativeLayout)object);
+        return (view == (ConstraintLayout)object);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.slide, container, false);
-        RelativeLayout layoutSlide = (RelativeLayout) view.findViewById(R.id.relativeLayoutSlide);
+        RelativeLayout layoutSlide = (RelativeLayout) view.findViewById(R.id.constraintLayoutSlide);
         ImageView imgSlide = (ImageView) view.findViewById(R.id.slideImg);
         TextView postSlide = (TextView) view.findViewById(R.id.userPostTitle);
         TextView postContent = (TextView) view.findViewById(R.id.userPost);
@@ -91,7 +92,7 @@ public class SlideAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((RelativeLayout)object);
+        container.removeView((ConstraintLayout)object);
     }
 
     private void UpdateLikeButtonState(Button likeButton, Post post)
