@@ -52,6 +52,7 @@ public class SettingActivity extends AppCompatActivity {
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 currentUser.mProfileImage.mBitmap = selectedImage;
                 currentUser.UpdateToDB();
+                imgUserProfile.setImageBitmap(selectedImage);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
