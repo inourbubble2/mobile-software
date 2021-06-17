@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/relativeLayoutSlide">
+    android:id="@+id/constraintLayoutSlide">
 
     <LinearLayout
         android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="50dp"
-        android:orientation="vertical">
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="60dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="15dp">
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp">
 
             <ImageView
                 android:id="@+id/imgPostUser"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_baseline_account_circle_32"/>
+                android:src="@drawable/ic_baseline_account_circle_32" />
 
             <TextView
                 android:id="@+id/postUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="username"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/nanum"
-                android:textSize="30sp"
-                android:layout_marginStart="10dp"/>
+                android:text="username"
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -40,82 +49,81 @@
             android:layout_width="350dp"
             android:layout_height="350dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp" />
 
         <TextView
             android:id="@+id/userPostTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="title"
-            android:textSize="25sp"
-            android:fontFamily="@font/nanum"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"/>
+            android:fontFamily="@font/nanum"
+            android:text="title"
+            android:textSize="25sp" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:scrollbars="vertical"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            android:scrollbars="vertical">
 
             <TextView
                 android:id="@+id/userPost"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:text="user's post here"
-                android:textSize="25sp"
-                android:fontFamily="@font/nanum"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="15dp"/>
+                android:fontFamily="@font/nanum"
+                android:text="user's post here"
+                android:textSize="25sp" />
 
         </ScrollView>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="15dp">
+            android:layout_marginStart="15dp"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnLike"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="0dp"
-                android:background="@drawable/ic_baseline_thumb_up_alt_24"/>
+                android:background="@drawable/ic_baseline_thumb_up_alt_24" />
 
             <Button
                 android:id="@+id/btnComment"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/ic_baseline_comment_32"/>
+                android:background="@drawable/ic_baseline_comment_32" />
 
             <Button
                 android:id="@+id/btnShare"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/ic_baseline_share_32"/>
+                android:background="@drawable/ic_baseline_share_32" />
 
             <EditText
                 android:id="@+id/noOfLike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/nanum"
-                android:textSize="20sp"
-                android:text="0"
                 android:layout_marginStart="133dp"
-                />
+                android:fontFamily="@font/nanum"
+                android:text="0"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="명이 좋아한다"
                 android:fontFamily="@font/nanum"
-                android:textSize="20sp"/>
+                android:text="명이 좋아한다"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
