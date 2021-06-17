@@ -75,6 +75,7 @@ public class Post  extends DBTable
     @Override
     public void LoadFromCursor(CursorWrapper cursor) {
         this.mPrimaryKey = cursor.GetIntegerData(DBTable.mPrimaryKeyColumnName);
+        this.writerID = cursor.GetStringData("writerID");
         this.title = cursor.GetStringData("title");
         this.content = cursor.GetStringData("content");
         this.createdAt = cursor.GetDateData("createdAt");
