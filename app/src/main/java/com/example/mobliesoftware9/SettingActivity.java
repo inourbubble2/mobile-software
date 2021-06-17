@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,7 @@ import java.io.InputStream;
 //
 public class SettingActivity extends AppCompatActivity {
 
-    EditText username;
+    TextView username;
     EditText password;
     Button btnSaveProfile;
     User currentUser;
@@ -71,7 +72,7 @@ public class SettingActivity extends AppCompatActivity {
         // 세팅과 관련된 액티비티
         // 알림 설정, 닉네임 변경 등 진행
         imgUserProfile = (ShapeableImageView) findViewById(R.id.imgUserProfile);
-        username = (EditText) findViewById(R.id.username);
+        username = (TextView) findViewById(R.id.username);
         //password = (EditText) findViewById(R.id.password);
         //btnSaveProfile = (Button) findViewById(R.id.btnSaveProfile);
         btnUserPicEdit = (Button) findViewById(R.id.btnUserPicEdit);
