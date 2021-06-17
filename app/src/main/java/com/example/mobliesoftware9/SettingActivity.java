@@ -27,8 +27,6 @@ import java.io.InputStream;
 public class SettingActivity extends AppCompatActivity {
 
     TextView username;
-    EditText password;
-    Button btnSaveProfile;
     User currentUser;
 
     ShapeableImageView imgUserProfile;
@@ -82,23 +80,15 @@ public class SettingActivity extends AppCompatActivity {
 
         // 프로필 사진 보여주기
 
-        if (currentUser.mProfileImage != null)
+        if (currentUser.mProfileImage.mBitmap != null)
             imgUserProfile.setImageBitmap(currentUser.mProfileImage.mBitmap);
-
-
-        btnSaveProfile.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                String usernameStr = username.getText().toString();
-                currentUser.UpdateToDB();
-            }
-        });
 
         btnUserPicEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EditCurrentUserProfileImage();
                 imgUserProfile.setImageBitmap(currentUser.mProfileImage.mBitmap);
+                Toast.makeText(getApplicationContext(), "프로필 사진 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
