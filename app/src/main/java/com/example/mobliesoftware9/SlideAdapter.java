@@ -40,7 +40,7 @@ public class SlideAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return (view == (ConstraintLayout)object);
+        return (view == (RelativeLayout)object);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class SlideAdapter extends PagerAdapter {
 
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.slide, container, false);
-        ConstraintLayout layoutSlide = (ConstraintLayout) view.findViewById(R.id.constraintLayoutSlide);
+        RelativeLayout layoutSlide = (RelativeLayout) view.findViewById(R.id.relativeLayoutSlide);
         ImageView imgSlide = (ImageView) view.findViewById(R.id.slideImg);
         ImageView imgPostUser = (ImageView) view.findViewById(R.id.imgPostUser);
         TextView postSlide = (TextView) view.findViewById(R.id.userPostTitle);
@@ -114,7 +114,7 @@ public class SlideAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((ConstraintLayout)object);
+        container.removeView((RelativeLayout)object);
     }
 
     private void UpdateLikeButtonState(Button likeButton, Post post)
