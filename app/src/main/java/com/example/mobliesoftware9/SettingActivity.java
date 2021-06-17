@@ -72,8 +72,8 @@ public class SettingActivity extends AppCompatActivity {
         // 알림 설정, 닉네임 변경 등 진행
         imgUserProfile = (ShapeableImageView) findViewById(R.id.imgUserProfile);
         username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
-        btnSaveProfile = (Button) findViewById(R.id.btnSaveProfile);
+        //password = (EditText) findViewById(R.id.password);
+        //btnSaveProfile = (Button) findViewById(R.id.btnSaveProfile);
         btnUserPicEdit = (Button) findViewById(R.id.btnUserPicEdit);
         currentUser = User.getInstance();
 

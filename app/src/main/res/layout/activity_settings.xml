@@ -65,48 +65,10 @@
                 android:textAlignment="center"
                 android:fontFamily="@font/nanum"
                 android:textSize="35sp"
+                android:editable="false"
                 android:text="유저네임"/>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="340dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:text="비밀번호  :"
-                android:fontFamily="@font/nanum"
-                android:textSize="35sp"
-                android:textColor="@color/green"
-                android:layout_marginStart="32dp"/>
-
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:textAlignment="center"
-                android:fontFamily="@font/nanum"
-                android:textSize="35sp"
-                android:text="비밀번호"/>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnSaveProfile"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="140dp"
-            android:layout_marginTop="500dp"
-            android:background="@drawable/gradient_shape"
-            android:fontFamily="@font/nanum"
-            android:text="저장"
-            android:textColor="@color/white"
-            android:textSize="35sp" />
 
 
     </FrameLayout>
